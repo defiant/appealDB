@@ -17,7 +17,8 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->string('event_name');
             $table->string('session')->nullable();
-            $table->string('country')->nullable();
+            $table->enum('level', ['local', 'regional', 'national', 'internation'])->nullable();
+            $table->string('nbo');
             $table->timestamps();
         });
     }
