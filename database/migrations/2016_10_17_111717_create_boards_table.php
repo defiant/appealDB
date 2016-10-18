@@ -15,12 +15,14 @@ class CreateBoardsTable extends Migration
     {
         Schema::create('boards', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('appeal_id');
             $table->string('hand', 67);
             $table->unsignedTinyInteger('board_no');
             $table->unsignedTinyInteger('dealer');
             $table->enum('vul', ['none', 'ew', 'ns', 'all']);
             $table->boolean('screen')->default(false);
             $table->text('bidding');
+            $table->text('alerts');
             $table->timestamps();
         });
     }

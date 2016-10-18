@@ -15,6 +15,7 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('appeal_id');
             $table->string('event_name');
             $table->string('session')->nullable();
             $table->enum('level', ['local', 'regional', 'national', 'internation'])->nullable();

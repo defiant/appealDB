@@ -1,17 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
-                <div class="panel-body">
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    <table class="table">
+        @foreach($appeals as $appeal)
+            <tr>
+                <td>{{$appeal->event->event_name}} - {{$appeal->event->event_name}}</td>
+                <td>{{$appeal->created_at}}</td>
+            </tr>
+        @endforeach
+    </table>
 @endsection

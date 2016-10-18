@@ -25,7 +25,7 @@
     <nav class="nav is-danger">
         <div class="nav-left">
             <a class="nav-item is-brand" href="#">
-                JOBS
+                AppealDB
             </a>
         </div>
 
