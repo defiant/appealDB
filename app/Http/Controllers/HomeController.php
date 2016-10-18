@@ -49,6 +49,8 @@ class HomeController extends Controller
         $board->hand = $this->makeHand($request->get('deal'));
         $board->bidding = $this->cleanBidding($request->get('bidding'));
         $board->alerts = $this->removeWhiteSpace($request->get('alerts'));
+        $board->lead = $request->get('lead');
+        $board->table_result = $request->get('table_result');
 
         $appeal = new Appeal();
         $appeal->player_north = $request->get('player_north');
@@ -58,8 +60,10 @@ class HomeController extends Controller
         $appeal->director = $request->get('director');
         $appeal->committee = $request->get('committee');
         $appeal->facts = $request->get('facts');
+        $appeal->ruling = $request->get('ruling');
         $appeal->appeal_reason = $request->get('appeal_reason');
         $appeal->decision = $request->get('decision');
+        $appeal->laws = $request->get('laws');
         $appeal->appeal_time = $request->get('date');
 
         $appeal->save();

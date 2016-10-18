@@ -20,15 +20,14 @@ class CreateAppealsTable extends Migration
             $table->string('player_south');
             $table->string('player_east');
             $table->string('player_west');
-            // director
             $table->string('director');
-            // comitee
             $table->string('committee');
 
-            // director ruling
             $table->text('facts');
+            $table->text('ruling');
             $table->text('appeal_reason');
             $table->text('decision');
+            $table->string('laws');
 
             $table->dateTime('appeal_time');
             $table->boolean('status')->default(false);

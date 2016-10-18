@@ -23,6 +23,8 @@ class CreateBoardsTable extends Migration
             $table->boolean('screen')->default(false);
             $table->text('bidding');
             $table->text('alerts');
+            $table->string('lead', 2);
+            $table->string('table_result', 2);
             $table->timestamps();
         });
     }

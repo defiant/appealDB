@@ -5,33 +5,44 @@
         <form action="/store" method="post">
             <fieldset>
                 <legend>Event Info</legend>
+                <div class="columns">
+                    <div class="column">
+                        <label for="event_name" class="label">Event Name:</label>
+                        <p class="control">
+                            <input type="text" name="event_name" id="event_name" class="input" placeholder="Event Name" required>
+                        </p>
+                    </div>
 
-                <label for="event_name" class="label">Event Name:</label>
-                <p class="control">
-                    <input type="text" name="event_name" id="event_name" class="input" placeholder="Event Name" required>
-                </p>
+                    <div class="column">
+                        <label for="event_session" class="label">Session</label>
+                        <p class="control">
+                            <input type="text" name="event_session" id="event_session" class="input" placeholder="Session" required>
+                        </p>
+                    </div>
+                </div>
 
-                <label for="event_session" class="label">Session</label>
-                <p class="control">
-                    <input type="text" name="event_session" id="event_session" class="input" placeholder="Session" required>
-                </p>
+                <div class="columns">
+                    <div class="column">
+                        <label for="nbo" class="label">National Bridge Organization</label>
+                        <p class="control">
+                            <input type="text" name="nbo" id="nbo" class="input" placeholder="NBO: ACBL, EBL etc..">
+                        </p>
+                    </div>
 
-                <label for="event_level" class="label">Event Level</label>
-                <p class="control">
-                    <span class="select">
-                        <select name="event_level" id="event_level">
-                            <option value="local">Local</option>
-                            <option value="regional">Regional</option>
-                            <option value="national">National</option>
-                            <option value="international">International</option>
-                        </select>
-                    </span>
-                </p>
-
-                <label for="nbo" class="label">National Bridge Organization</label>
-                <p class="control">
-                    <input type="text" name="nbo" id="nbo" class="input" placeholder="NBO: ACBL, EBL etc..">
-                </p>
+                    <div class="column">
+                        <label for="event_level" class="label">Event Level</label>
+                        <p class="control">
+                            <span class="select">
+                                <select name="event_level" id="event_level">
+                                    <option value="local">Local</option>
+                                    <option value="regional">Regional</option>
+                                    <option value="national">National</option>
+                                    <option value="international">International</option>
+                                </select>
+                            </span>
+                        </p>
+                    </div>
+                </div>
             </fieldset>
 
             <fieldset>
@@ -72,9 +83,14 @@
                     <input type="text" name="committee" id="committee" class="input" placeholder="Name of AC Members separated by comma">
                 </p>
 
-                <label for="facts" class="label">Ruling</label>
+                <label for="facts" class="label">Facts</label>
                 <p class="control">
                     <textarea name="facts" id="facts" cols="30" rows="10" class="textarea"></textarea>
+                </p>
+
+                <label for="ruling" class="label">Ruling</label>
+                <p class="control">
+                    <textarea name="ruling" id="ruling" cols="30" rows="10" class="textarea"></textarea>
                 </p>
 
                 <label for="appeal_reason" class="label">Appeal Reason</label>
@@ -85,6 +101,11 @@
                 <label for="decision" class="label">Decision</label>
                 <p class="control">
                     <textarea name="decision" id="decision" cols="30" rows="10" class="textarea"></textarea>
+                </p>
+
+                <label for="laws" class="label">Relevant Laws</label>
+                <p class="control">
+                    <input type="text" name="laws" id="laws" class="input" placeholder="Relevant laws separated by comma; 40A, 62B">
                 </p>
             </fieldset>
 
@@ -184,6 +205,32 @@
                     <textarea name="alerts" id="alerts" cols="30" rows="10" class="textarea"></textarea>
                 </p>
 
+                <label for="lead" class="label">Lead</label>
+                <p class="control">
+                    <input type="text" name="lead" id="lead" class="input" maxlength="2">
+                </p>
+
+                <label for="table_result" class="label">Table Result</label>
+                <p class="control">
+                    <span class="select">
+                        <select name="table_result" id="table_result">
+                            <option value="-7">-7</option>
+                            <option value="-6">-6</option>
+                            <option value="-5">-5</option>
+                            <option value="-4">-4</option>
+                            <option value="-3">-3</option>
+                            <option value="-2">-2</option>
+                            <option value="-1">-1</option>
+                            <option value="=" selected>=</option>
+                            <option value="+1">+1</option>
+                            <option value="+2">+2</option>
+                            <option value="+3">+3</option>
+                            <option value="+4">+4</option>
+                            <option value="+5">+5</option>
+                            <option value="+6">+6</option>
+                        </select>
+                    </span>
+                </p>
             </fieldset>
 
             {{csrf_field()}}
