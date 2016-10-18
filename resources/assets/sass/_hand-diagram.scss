@@ -1,0 +1,30 @@
+.hand-diagram{
+  position: relative;
+
+  .hand-row{
+    display: block;
+    width: 375px;
+
+    .hand{
+
+      ul{
+        width: 125px;
+        overflow: hidden;
+        margin: auto;
+      }
+    }
+
+
+    .north, .south{
+      padding-left: 10px;
+    }
+
+    .west{
+      float: left;
+    }
+
+    .east{
+      float: right;
+    }
+  }
+}

@@ -28,6 +28,12 @@ class HomeController extends Controller
     public function show($id)
     {
         $data['appeal'] = Appeal::with(['event', 'board'])->find($id);
+        $data['hands'] = $this->handToArray($data['appeal']->board->hand);
+        $data['auction'] = array_merge(array_fill(0, $data['appeal']->board->dealer , ''), explode('_' ,$data['appeal']->board->bidding));
+        $alerts = explode('!', $data['appeal']->board->alerts);
+        array_shift($alerts);
+        $data['alerts'] = $alerts;
+
         return view('show', $data);
 
     }
@@ -106,7 +112,24 @@ class HomeController extends Controller
 
     protected function cleanBidding($biddingData)
     {
-        return self::removeWhiteSpace($biddingData);
+        return self::removeWhiteSpace($biddingData, ' ');
+    }
+
+    protected function handToArray($str)
+    {
+        $seats = ['n', 'w', 'e', 's'];
+        $o = 0;
+        $ret = [];
+
+        foreach (explode('|', $str) as $item) {
+            $seat = [];
+            foreach (explode('.', $item) as $i) {
+                $seat[] = $i;
+            }
+            $ret[$seats[$o++]] = $seat;
+        }
+
+        return $ret;
     }
 
     protected static function removeWhiteSpace($str, $delimiter='_')

@@ -24,7 +24,7 @@
 
     <nav class="nav is-danger">
         <div class="nav-left">
-            <a class="nav-item is-brand" href="#">
+            <a class="nav-item is-brand" href="/">
                 AppealDB
             </a>
         </div>
@@ -42,21 +42,19 @@
             </a>
         </div>
 
-        <span class="nav-toggle">
+        {{--<span class="nav-toggle">
         <span></span>
         <span></span>
         <span></span>
-        </span>
+        </span>--}}
 
         <div class="nav-right nav-menu">
-            <a class="nav-item" href="#">
+            <a class="nav-item" href="/">
                 Home
             </a>
-            <a class="nav-item" href="#">
+
+            <a class="nav-item" href="/documentation">
                 Documentation
-            </a>
-            <a class="nav-item" href="#">
-                Blog
             </a>
 
             <span class="nav-item">

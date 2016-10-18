@@ -3890,3 +3890,28 @@ a.panel-block:hover {
       border-bottom: 1px solid #dbdbdb; }
       .footer a:not(.icon):hover, .footer a:visited:not(.icon):hover {
         border-bottom-color: #00d1b2; }
+
+.hand-diagram {
+  position: relative; }
+  .hand-diagram .hand-row {
+    display: block;
+    width: 375px; }
+    .hand-diagram .hand-row .hand ul {
+      width: 125px;
+      overflow: hidden;
+      margin: auto; }
+    .hand-diagram .hand-row .north, .hand-diagram .hand-row .south {
+      padding-left: 10px; }
+    .hand-diagram .hand-row .west {
+      float: left; }
+    .hand-diagram .hand-row .east {
+      float: right; }
+
+#appeal_form fieldset {
+  padding: 20px;
+  margin: 10px auto;
+  border: none;
+  background-color: #e4ecf2; }
+  #appeal_form fieldset legend {
+    font-size: 28px;
+    border-bottom: 1px solid #8eb4cb; }

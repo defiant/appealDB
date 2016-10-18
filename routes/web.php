@@ -12,6 +12,10 @@
 */
 Auth::routes();
 
+Route::get('/documentation', function(){
+    return view('documentation');
+});
+
 Route::get('/create', 'HomeController@create');
 Route::post('/store', 'HomeController@store');
 

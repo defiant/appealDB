@@ -1,0 +1,12 @@
+#appeal_form{
+  fieldset{
+    padding: 20px;
+    margin: 10px auto;
+    border: none;
+    background-color: darken($body-bg, 5%);
+    legend{
+      font-size: $font-size-base*2;
+      border-bottom: 1px solid $brand-info;
+    }
+  }
+}
