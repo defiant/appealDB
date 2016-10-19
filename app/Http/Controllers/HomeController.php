@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
         $data['appeal'] = Appeal::with(['event', 'board'])->findOrFail($id);
         $data['hands'] = $this->handToArray($data['appeal']->board->hand);
-        $data['auction'] = array_merge(array_fill(0, $data['appeal']->board->dealer , ''), explode('_' ,$data['appeal']->board->bidding));
+        $data['auction'] = array_merge(array_fill(0, $data['appeal']->board->dealer , ''), explode(' ' ,$data['appeal']->board->bidding));
         $alerts = explode('!', $data['appeal']->board->alerts);
         array_shift($alerts);
         $data['alerts'] = $alerts;

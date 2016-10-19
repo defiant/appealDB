@@ -83,7 +83,7 @@
                                 @if($k % 4 === 0)
                                     <tr>
                                 @endif
-                                    <td>{{$bid}}</td>
+                                    <td>{{strtoupper($bid)}}</td>
                             @endforeach
                         </tbody>
                     </table>
@@ -105,19 +105,19 @@
                     <p class="subtitle">{{$appeal->appeal_time->toFormattedDateString()}}</p>
 
                     <p>
-                        Level: {{$appeal->event->level}} <br>
-                        NBO: {{$appeal->event->nbo}}
+                        <strong>Level</strong>: {{$appeal->event->level}} <br>
+                        <strong>NBO</strong>: {{$appeal->event->nbo}}
                     </p>
                     <p>
-                        Director: {{$appeal->director}} <br>
-                        Committee: {{$appeal->committee}}
+                        <strong>Director</strong>: {{$appeal->director}} <br>
+                        <strong>Committee</strong>: {{$appeal->committee}}
                     </p>
                     <p>
-                        Players: <br>
+                        <strong>Players</strong>: <br>
                         N/S: {{$appeal->player_north}} - {{$appeal->player_south}} <br>
                         E/W: {{$appeal->player_east}} - {{$appeal->player_west}} <br>
                     </p>
-                    <p>Related Laws: {{$appeal->laws}}</p>
+                    <p><strong>Related Laws</strong>: {{$appeal->laws}}</p>
                 </div>
             </div>
         </div>
