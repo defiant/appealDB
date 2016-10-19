@@ -34,6 +34,8 @@ class HomeController extends Controller
         array_shift($alerts);
         $data['alerts'] = $alerts;
 
+        $parsedown = new \Parsedown();
+
         return view('show', $data);
 
     }

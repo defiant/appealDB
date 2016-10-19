@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
+use Parsedown;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::directive('markdown', function($expression){
+            return "<?php echo app('markdown')->text(e({$expression}));?>";
+        });
     }
 
     /**
@@ -24,5 +28,11 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        /*$this->app->singleton(Parser::class, function ($app) {
+            $parsedown = new Parsedown;
+            return new Parser($parsedown);
+        });*/
+
+        $this->app->singleton('markdown', Parsedown::class);
     }
 }

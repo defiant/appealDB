@@ -10,7 +10,7 @@
                 </div>
             </div>
         </div>
-
+        <hr>
         <div class="columns">
             <div class="column is-5">
                 <div class="hand-diagram">
@@ -61,12 +61,14 @@
                 <div class="hand-info">
                     <ul>
                         <li>Board No: {{$appeal->board->board_no}}</li>
-                        <li>Dealer: {{$appeal->board->dealer}}</li>
+                        <li>Dealer: {{config('bridge.dealer')[$appeal->board->dealer]}}</li>
                         <li>Vulnerable: {{$appeal->board->vul}}</li>
                     </ul>
                 </div>
 
+                <hr>
                 <div class="auction">
+                    <h2 class="title is-4">Auction</h2>
                     <table class="table table-bordered">
                         <thead>
                         <tr>
@@ -124,16 +126,16 @@
                 <hr>
                 <div class="content">
                     <h2>Facts</h2>
-                    <p>{{$appeal->facts}}</p>
+                    @markdown($appeal->facts)
 
                     <h2>Ruling</h2>
-                    <p>{{$appeal->ruling}}</p>
+                    @markdown($appeal->ruling)
 
                     <h2>Appeal reason</h2>
-                    <p>{{$appeal->appeal_reason}}</p>
+                    @markdown($appeal->appeal_reason)
 
                     <h2>Decision</h2>
-                    <p>{{$appeal->decision}}</p>
+                    @markdown($appeal->decision)
                 </div>
             </div>
         </div>

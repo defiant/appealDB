@@ -64,13 +64,13 @@
                     </span>
                     <span>Tweet</span>
                 </a>
-                <a class="button is-primary" href="#">
+                {{--<a class="button is-primary" href="#">
                     <span class="icon">
                         <i class="fa fa-download"></i>
                     </span>
                     <span>Download</span>
-                </a>
-                </span>
+                </a>--}}
+            </span>
         </div>
     </nav>
 
