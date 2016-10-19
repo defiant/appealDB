@@ -27,14 +27,12 @@ class HomeController extends Controller
 
     public function show($id)
     {
-        $data['appeal'] = Appeal::with(['event', 'board'])->find($id);
+        $data['appeal'] = Appeal::with(['event', 'board'])->findOrFail($id);
         $data['hands'] = $this->handToArray($data['appeal']->board->hand);
         $data['auction'] = array_merge(array_fill(0, $data['appeal']->board->dealer , ''), explode('_' ,$data['appeal']->board->bidding));
         $alerts = explode('!', $data['appeal']->board->alerts);
         array_shift($alerts);
         $data['alerts'] = $alerts;
-
-        $parsedown = new \Parsedown();
 
         return view('show', $data);
 
@@ -77,6 +75,8 @@ class HomeController extends Controller
         $appeal->save();
         $appeal->event()->save($event);
         $appeal->board()->save($board);
+
+        return redirect('/'.$appeal->id);
     }
 
     // todo: refactor: move these out of the controller

@@ -16,8 +16,8 @@ Route::get('/documentation', function(){
     return view('documentation');
 });
 
-Route::get('/create', 'HomeController@create');
-Route::post('/store', 'HomeController@store');
+Route::get('/create', ['middleware' => 'auth', 'uses' => 'HomeController@create']);
+Route::post('/store', ['middleware' => 'auth', 'uses' => 'HomeController@store']);
 
 Route::get('/{id}', 'HomeController@show');
 Route::get('/', 'HomeController@index');
