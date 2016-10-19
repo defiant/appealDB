@@ -18,7 +18,7 @@ class CreateEventsTable extends Migration
             $table->unsignedInteger('appeal_id');
             $table->string('event_name');
             $table->string('session')->nullable();
-            $table->enum('level', ['local', 'regional', 'national', 'internation'])->nullable();
+            $table->enum('level', ['local', 'regional', 'national', 'international'])->nullable();
             $table->string('nbo');
             $table->timestamps();
         });
