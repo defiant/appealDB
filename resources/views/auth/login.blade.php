@@ -28,21 +28,41 @@
                 <span class="help is-danger">{{ $errors->first('password') }}</span>
             @endif
 
-            <p class="control">
-                <label class="checkbox" for="remember">
-                    <input type="checkbox" name="remember" id="remember">
-                    Remember me
-                </label>
-            </p>
+
+
+            <div class="columns">
+                <div class="column">
+                    <p class="control">
+                        <label class="checkbox" for="remember">
+                            <input type="checkbox" name="remember" id="remember">
+                            Remember me
+                        </label>
+                    </p>
+                </div>
+                <div class="column">
+                    <p class="control">
+                        <a class="btn btn-link" href="{{ url('/password/reset') }}">
+                            Forgot Your Password?
+                        </a>
+                    </p>
+                </div>
+            </div>
 
             <p class="control">
-                <button class="button is-success is-fulwidth">
+                <button class="button is-success is-fullwidth">
                     Login
                 </button>
             </p>
-            <a class="btn btn-link" href="{{ url('/password/reset') }}">
-                Forgot Your Password?
-            </a>
+
+            <p class="has-text-centered">
+                - or -
+            </p>
+
+            <p class="control">
+                <a class="button is-info is-fullwidth" href="/register">
+                    No Account. Register now, it's FREE
+                </a>
+            </p>
         </form>
     </div>
 </div>
