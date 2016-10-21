@@ -3892,8 +3892,57 @@ a.panel-block:hover {
       .footer a:not(.icon):hover, .footer a:visited:not(.icon):hover {
         border-bottom-color: #00d1b2; }
 
+/*.suit{
+  font-size: large;
+}*/
+.suit0::before {
+  content: '♠';
+  font-family: monospace;
+  color: #000; }
+
+.suit1::before {
+  content: '♥';
+  font-family: monospace;
+  color: darkred; }
+
+.suit2::before {
+  content: '♦';
+  font-family: monospace;
+  color: orangered; }
+
+.suit3::before {
+  content: '♣';
+  font-family: monospace;
+  color: forestgreen; }
+
+.auction-header {
+  color: white;
+  border-bottom: 2px solid black; }
+  .auction-header .n, .auction-header .s, .auction-header .e, .auction-header .w {
+    font-weight: bold; }
+  .auction-header.all .n, .auction-header.all .s, .auction-header.all .e, .auction-header.all .w {
+    background-color: red; }
+  .auction-header.none .n, .auction-header.none .s, .auction-header.none .e, .auction-header.none .w {
+    background-color: green; }
+  .auction-header.ew .e, .auction-header.ew .w {
+    background-color: red; }
+  .auction-header.ew .n, .auction-header.ew .s {
+    background-color: green; }
+  .auction-header.ns .e, .auction-header.ns .w {
+    background-color: green; }
+  .auction-header.ns .n, .auction-header.ns .s {
+    background-color: red; }
+
+.auction-row .column {
+  border-bottom: 1px solid black;
+  border-right: 1px solid black; }
+  .auction-row .column:first-child {
+    border-left: 1px solid black; }
+
 .hand-diagram {
-  position: relative; }
+  position: relative;
+  margin: auto;
+  max-width: 375px; }
   .hand-diagram .hand-row {
     display: block;
     width: 375px; }

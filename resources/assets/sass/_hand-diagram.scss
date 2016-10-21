@@ -1,5 +1,89 @@
+/*.suit{
+  font-size: large;
+}*/
+
+.suit0::before{
+  content: '♠';
+  font-family: monospace;
+  color: #000;
+}
+
+.suit1::before{
+  content: '♥';
+  font-family: monospace;
+  color: darkred;
+}
+
+.suit2::before{
+  content: '♦';
+  font-family: monospace;
+  color: orangered;
+}
+
+.suit3::before{
+  content: '♣';
+  font-family: monospace;
+  color: forestgreen;
+}
+
+.auction-header{
+
+    color: white;
+    border-bottom: 2px solid black;
+
+    .n, .s, .e, .w{
+      font-weight: bold;
+    }
+
+    &.all{
+      .n, .s, .e, .w{
+        background-color: red;
+      }
+    }
+
+    &.none{
+      .n, .s, .e, .w{
+        background-color: green;
+      }
+    }
+
+    &.ew{
+      .e, .w{
+        background-color: red;
+      }
+
+      .n, .s{
+        background-color: green;
+      }
+    }
+
+  &.ns{
+    .e, .w{
+      background-color: green;
+    }
+
+    .n, .s{
+      background-color: red;
+    }
+  }
+}
+
+.auction-row{
+  .column{
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+
+    &:first-child{
+      border-left: 1px solid black;
+    }
+  }
+}
+
+
 .hand-diagram{
   position: relative;
+  margin: auto;
+  max-width: 375px;
 
   .hand-row{
     display: block;

@@ -13,6 +13,12 @@
         <hr>
         <div class="columns">
             <div class="column is-5">
+                <div class="hand-info columns">
+                    <div class="column"><strong>Board No</strong>: {{$appeal->board->board_no}}</div>
+                    <div class="column"><strong>Dealer</strong>: {{config('bridge.dealer')[$appeal->board->dealer]}}</div>
+                    <div class="column"><strong>Vulnerable</strong>: {{strtoupper($appeal->board->vul)}}</div>
+                </div>
+
                 <div class="hand-diagram">
                     @if($appeal->board->screen)
                         <svg width="100%" height="100%" viewport="0 0 120 120" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
@@ -22,8 +28,8 @@
                     <div class="hand-row">
                         <div class="north hand">
                             <ul>
-                                @foreach($hands['n'] as $line)
-                                    <li>{{$line}}</li>
+                                @foreach($hands['n'] as $k => $line)
+                                    <li class="suit suit{{$k}}">{{$line}}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -32,16 +38,16 @@
                     <div class="hand-row is-clearfix">
                         <div class="west hand">
                             <ul>
-                                @foreach($hands['w'] as $line)
-                                    <li>{{$line}}</li>
+                                @foreach($hands['w'] as $k => $line)
+                                    <li class="suit suit{{$k}}">{{$line}}</li>
                                 @endforeach
                             </ul>
                         </div>
 
                         <div class="east hand">
                             <ul>
-                                @foreach($hands['e'] as $line)
-                                    <li>{{$line}}</li>
+                                @foreach($hands['e'] as $k => $line)
+                                    <li class="suit suit{{$k}}">{{$line}}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -50,43 +56,38 @@
                     <div class="hand-row">
                         <div class="south hand">
                             <ul>
-                                @foreach($hands['s'] as $line)
-                                    <li>{{$line}}</li>
+                                @foreach($hands['s'] as $k => $line)
+                                    <li class="suit suit{{$k}}">{{$line}}</li>
                                 @endforeach
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="hand-info">
-                    <ul>
-                        <li>Board No: {{$appeal->board->board_no}}</li>
-                        <li>Dealer: {{config('bridge.dealer')[$appeal->board->dealer]}}</li>
-                        <li>Vulnerable: {{$appeal->board->vul}}</li>
-                    </ul>
-                </div>
-
                 <hr>
                 <div class="auction">
                     <h2 class="title is-4">Auction</h2>
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>North</th>
-                            <th>East</th>
-                            <th>South</th>
-                            <th>West</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($auction as $k => $bid)
-                                @if($k % 4 === 0)
-                                    <tr>
-                                @endif
-                                    <td>{{strtoupper($bid)}}</td>
-                            @endforeach
-                        </tbody>
-                    </table>
+
+                    <div class="columns is-mobile auction-header {{$appeal->board->vul}}">
+                        <div class="column n has-text-centered">North</div>
+                        <div class="column w has-text-centered">East</div>
+                        <div class="column s has-text-centered">South</div>
+                        <div class="column w has-text-centered">West</div>
+                    </div>
+
+                    @foreach($auction as $k => $bid)
+                        @if($k % 4 === 0)
+                            <div class="columns is-mobile auction-row auction-row__{{$row++}}">
+                        @endif
+                                <div class="column is-one-quarter has-text-centered">{{strtoupper($bid)}}</div>
+                        @if($k % 4 === 3)
+                            </div>
+                        @endif
+                    @endforeach
+                    @if($row*4 > $k)
+                        </div>
+                    @endif
+
                 </div>
 
                 <div class="alerts content">

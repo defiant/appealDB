@@ -33,6 +33,7 @@ class HomeController extends Controller
         $alerts = explode('!', $data['appeal']->board->alerts);
         array_shift($alerts);
         $data['alerts'] = $alerts;
+        $data['row'] = 0;
 
         return view('show', $data);
 
