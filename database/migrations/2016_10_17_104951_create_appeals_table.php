@@ -15,6 +15,7 @@ class CreateAppealsTable extends Migration
     {
         Schema::create('appeals', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedTinyInteger('category_id');
             // players
             $table->string('player_north');
             $table->string('player_south');

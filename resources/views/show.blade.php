@@ -107,7 +107,8 @@
 
                     <p>
                         <strong>Level</strong>: {{$appeal->event->level}} <br>
-                        <strong>NBO</strong>: {{$appeal->event->nbo}}
+                        <strong>NBO</strong>: {{$appeal->event->nbo}} <br>
+                        <strong>Category</strong>:
                     </p>
                     <p>
                         <strong>Director</strong>: {{$appeal->director}} <br>
@@ -119,6 +120,11 @@
                         E/W: {{$appeal->player_east}} - {{$appeal->player_west}} <br>
                     </p>
                     <p><strong>Related Laws</strong>: {{$appeal->laws}}</p>
+
+                    <p>
+                        <strong>Table Result</strong>: {{$appeal->board->table_result}}<br>
+                        <strong>Lead</strong>:{{$appeal->board->lead}}
+                    </p>
                 </div>
             </div>
         </div>

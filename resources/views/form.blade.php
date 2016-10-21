@@ -31,14 +31,14 @@
                         <div class="column">
                             <label for="event_session" class="label">Session</label>
                             <p class="control">
-                                <input type="text" name="event_session" id="event_session" class="input" placeholder="Session" required>
+                                <input type="text" name="event_session" id="event_session" class="input" placeholder="Session or Match" required>
                             </p>
                         </div>
                     </div>
 
                     <div class="columns">
                         <div class="column">
-                            <label for="nbo" class="label">National Bridge Organization</label>
+                            <label for="nbo" class="label">Bridge Organization</label>
                             <p class="control">
                                 <input type="text" name="nbo" id="nbo" class="input" placeholder="NBO: ACBL, EBL etc..">
                             </p>
@@ -76,13 +76,9 @@
                             <p class="control">
                                 <span class="select">
                                     <select name="appeal_category" id="appeal_category">
-                                        <option value="0">Misinformation</option>
-                                        <option value="1">Unauthorised Information</option>
-                                        <option value="1">Tempo, Break in Tempo</option>
-                                        <option value="2">Illegal Deception</option>
-                                        <option value="3">Contested or Disputed Claim</option>
-                                        <option value="4">Inadvertent call</option>
-                                        <option value="5">Revoke</option>
+                                        @foreach(config('bridge.categories') as $k => $category)
+                                            <option value="{{$k}}">{{$category}}</option>
+                                        @endforeach
                                     </select>
                                 </span>
                             </p>

@@ -55,11 +55,12 @@ class HomeController extends Controller
         $board->screen = (bool) $request->get('screen');
         $board->hand = $this->makeHand($request->get('deal'));
         $board->bidding = $this->cleanBidding($request->get('bidding'));
-        $board->alerts = $this->removeWhiteSpace($request->get('alerts'));
-        $board->lead = $request->get('lead');
-        $board->table_result = $request->get('table_result');
+        $board->alerts = $this->removeWhiteSpace($request->get('alerts'), ' ');
+        $board->lead = $request->get('lead', null);
+        $board->table_result = $request->get('table_result', null);
 
         $appeal = new Appeal();
+        $appeal->category_id = $request->get('appeal_category');
         $appeal->player_north = $request->get('player_north');
         $appeal->player_south = $request->get('player_south');
         $appeal->player_east = $request->get('player_east');
