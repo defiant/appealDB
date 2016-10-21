@@ -24,7 +24,8 @@ class CreateBoardsTable extends Migration
             $table->text('bidding');
             $table->text('alerts');
             $table->string('lead', 2);
-            $table->string('table_result', 2);
+            $table->string('table_result', 6);
+            $table->enum('scoring', ['imp', 'mp']);
             $table->timestamps();
         });
     }

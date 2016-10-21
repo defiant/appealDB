@@ -1,5 +1,19 @@
 @extends('layouts.app')
 
+@push('css')
+    <link href="/css/flatpickr.min.css" rel="stylesheet">
+@endpush
+
+@push('js')
+    <script src="/js/flatpickr.min.js"></script>
+    <script>
+        document.getElementById("appeal_date").flatpickr({
+            altInput: true,
+            altInputClass: 'input'
+        });
+    </script>
+@endpush
+
 @section('content')
     <div class="container">
         <div class="column is-10 is-offset-1">
@@ -35,10 +49,10 @@
                             <p class="control">
                             <span class="select">
                                 <select name="event_level" id="event_level">
-                                    <option value="local">Local</option>
-                                    <option value="regional">Regional</option>
-                                    <option value="national">National</option>
                                     <option value="international">International</option>
+                                    <option value="national">National</option>
+                                    <option value="regional">Regional</option>
+                                    <option value="local">Local (Club)</option>
                                 </select>
                             </span>
                             </p>
@@ -49,30 +63,61 @@
                 <fieldset>
                     <legend>Info</legend>
 
-                    <label for="date" class="label">Appeal Date</label>
-                    <p class="control">
-                        <input type="text" name="date" id="date" class="input">
-                    </p>
+                    <div class="columns">
+                        <div class="column">
+                            <label for="appeal_date" class="label">Appeal Date</label>
+                            <p class="control has-icon">
+                                <input type="text" name="date" id="appeal_date" class="input" placeholder="Click to Select a Date">
+                                <i class="fa fa-calendar"></i>
+                            </p>
+                        </div>
+                        <div class="column">
+                            <label for="appeal_category" class="label">Appeal Caegory</label>
+                            <p class="control">
+                                <span class="select">
+                                    <select name="appeal_category" id="appeal_category">
+                                        <option value="0">Misinformation</option>
+                                        <option value="1">Unauthorised Information</option>
+                                        <option value="1">Tempo, Break in Tempo</option>
+                                        <option value="2">Illegal Deception</option>
+                                        <option value="3">Contested or Disputed Claim</option>
+                                        <option value="4">Inadvertent call</option>
+                                        <option value="5">Revoke</option>
+                                    </select>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
 
-                    <label for="player_north" class="label">North Player</label>
-                    <p class="control">
-                        <input type="text" name="player_north" id="player_north" class="input" placeholder="Name of the player at north position">
-                    </p>
+                    <div class="columns">
+                        <div class="column">
+                            <label for="player_north" class="label">North Player</label>
+                            <p class="control">
+                                <input type="text" name="player_north" id="player_north" class="input" placeholder="Name of the player at north position">
+                            </p>
+                        </div>
+                        <div class="column">
+                            <label for="player_south" class="label">South Player</label>
+                            <p class="control">
+                                <input type="text" name="player_south" id="player_south" class="input" placeholder="Name of the player at south position">
+                            </p>
+                        </div>
+                    </div>
 
-                    <label for="player_south" class="label">South Player</label>
-                    <p class="control">
-                        <input type="text" name="player_south" id="player_south" class="input" placeholder="Name of the player at south position">
-                    </p>
-
-                    <label for="player_east" class="label">East Player</label>
-                    <p class="control">
-                        <input type="text" name="player_east" id="player_east" class="input" placeholder="Name of the player at east position">
-                    </p>
-
-                    <label for="player_west" class="label">West Player</label>
-                    <p class="control">
-                        <input type="text" name="player_west" id="player_west" class="input" placeholder="Name of the player at west position">
-                    </p>
+                    <div class="columns">
+                        <div class="column">
+                            <label for="player_east" class="label">East Player</label>
+                            <p class="control">
+                                <input type="text" name="player_east" id="player_east" class="input" placeholder="Name of the player at east position">
+                            </p>
+                        </div>
+                        <div class="column">
+                            <label for="player_west" class="label">West Player</label>
+                            <p class="control">
+                                <input type="text" name="player_west" id="player_west" class="input" placeholder="Name of the player at west position">
+                            </p>
+                        </div>
+                    </div>
 
                     <label for="director" class="label">Director</label>
                     <p class="control">
@@ -117,33 +162,33 @@
                         <div class="column">
                             <label for="board_no" class="label">Board Number</label>
                             <p class="control">
-                                <input type="number" name="board_no" id="board_no" class="input">
+                                <input type="number" name="board_no" id="board_no" class="input" placeholder="Board NO">
                             </p>
                         </div>
                         <div class="column">
                             <label for="dealer" class="label">Dealer</label>
                             <p class="control">
-                        <span class="select">
-                            <select name="dealer" id="dealer">
-                                <option value="0">North</option>
-                                <option value="1">East</option>
-                                <option value="2">South</option>
-                                <option value="3">West</option>
-                            </select>
-                        </span>
+                                <span class="select">
+                                    <select name="dealer" id="dealer">
+                                        <option value="0">North</option>
+                                        <option value="1">East</option>
+                                        <option value="2">South</option>
+                                        <option value="3">West</option>
+                                    </select>
+                                </span>
                             </p>
                         </div>
                         <div class="column">
                             <label for="vul" class="label">Vulnerability</label>
                             <p class="control">
-                        <span class="select">
-                            <select name="vul" id="vul">
-                                <option value="none">None</option>
-                                <option value="ew">East / West</option>
-                                <option value="ns">North / South</option>
-                                <option value="all">All</option>
-                            </select>
-                        </span>
+                                <span class="select">
+                                    <select name="vul" id="vul">
+                                        <option value="none">None</option>
+                                        <option value="ew">East / West</option>
+                                        <option value="ns">North / South</option>
+                                        <option value="all">All</option>
+                                    </select>
+                                </span>
                             </p>
                         </div>
                         <div class="column">
@@ -166,40 +211,40 @@
                                     <div class="column is-one-third"></div>
                                     <div class="column is-one-third">
                                         <p>North</p>
-                                        <input type="text" name="deal[n][s]" id="deal[n][s]" class="input">
-                                        <input type="text" name="deal[n][h]" id="deal[n][h]" class="input">
-                                        <input type="text" name="deal[n][d]" id="deal[n][d]" class="input">
-                                        <input type="text" name="deal[n][c]" id="deal[n][c]" class="input">
+                                        <input type="text" name="deal[n][s]" id="deal[n][s]" class="input" placeholder="♠">
+                                        <input type="text" name="deal[n][h]" id="deal[n][h]" class="input" placeholder="♥">
+                                        <input type="text" name="deal[n][d]" id="deal[n][d]" class="input" placeholder="♦">
+                                        <input type="text" name="deal[n][c]" id="deal[n][c]" class="input" placeholder="♣">
                                     </div>
                                     <div class="column is-one-third"></div>
                                 </div>
                                 <div class="columns">
                                     <div class="column is-one-third">
                                         <p>West</p>
-                                        <input type="text" name="deal[w][s]" id="deal[w][s]" class="input">
-                                        <input type="text" name="deal[w][h]" id="deal[w][h]" class="input">
-                                        <input type="text" name="deal[w][d]" id="deal[w][d]" class="input">
-                                        <input type="text" name="deal[w][c]" id="deal[w][c]" class="input">
+                                        <input type="text" name="deal[w][s]" id="deal[w][s]" class="input" placeholder="♠">
+                                        <input type="text" name="deal[w][h]" id="deal[w][h]" class="input" placeholder="♥">
+                                        <input type="text" name="deal[w][d]" id="deal[w][d]" class="input" placeholder="♦">
+                                        <input type="text" name="deal[w][c]" id="deal[w][c]" class="input" placeholder="♣">
                                     </div>
 
                                     <div class="column is-one-third"></div>
 
                                     <div class="column is-one-third">
                                         <p>East</p>
-                                        <input type="text" name="deal[e][s]" id="deal[e][s]" class="input">
-                                        <input type="text" name="deal[e][h]" id="deal[e][h]" class="input">
-                                        <input type="text" name="deal[e][d]" id="deal[e][d]" class="input">
-                                        <input type="text" name="deal[e][c]" id="deal[e][c]" class="input">
+                                        <input type="text" name="deal[e][s]" id="deal[e][s]" class="input" placeholder="♠">
+                                        <input type="text" name="deal[e][h]" id="deal[e][h]" class="input" placeholder="♥">
+                                        <input type="text" name="deal[e][d]" id="deal[e][d]" class="input" placeholder="♦">
+                                        <input type="text" name="deal[e][c]" id="deal[e][c]" class="input" placeholder="♣">
                                     </div>
                                 </div>
                                 <div class="columns">
                                     <div class="column is-one-third"></div>
                                     <div class="column is-one-third">
                                         <p>South</p>
-                                        <input type="text" name="deal[s][s]" id="deal[s][s]" class="input">
-                                        <input type="text" name="deal[s][h]" id="deal[s][h]" class="input">
-                                        <input type="text" name="deal[s][d]" id="deal[s][d]" class="input">
-                                        <input type="text" name="deal[s][c]" id="deal[s][c]" class="input">
+                                        <input type="text" name="deal[s][s]" id="deal[s][s]" class="input" placeholder="♠">
+                                        <input type="text" name="deal[s][h]" id="deal[s][h]" class="input" placeholder="♥">
+                                        <input type="text" name="deal[s][d]" id="deal[s][d]" class="input" placeholder="♦">
+                                        <input type="text" name="deal[s][c]" id="deal[s][c]" class="input" placeholder="♣">
                                     </div>
                                     <div class="column is-one-third"></div>
                                 </div>
@@ -277,38 +322,32 @@
 
                     <hr>
                     <div class="columns">
-                        <div class="column">
+                        <div class="column is-3">
+                            <label for="table_result" class="label">Table Result</label>
+                            <p class="control">
+                                <input type="text" name="table_result" id="table_result" class="input" maxlength="6">
+                            </p>
+
                             <label for="lead" class="label">Lead</label>
                             <p class="control">
                                 <input type="text" name="lead" id="lead" class="input" maxlength="2">
                             </p>
                         </div>
-                        <div class="column">
-                            <label for="table_result" class="label">Table Result</label>
-                            <p class="control">
-                                <span class="select">
-                                    <select name="table_result" id="table_result">
-                                        <option value="-7">-7</option>
-                                        <option value="-6">-6</option>
-                                        <option value="-5">-5</option>
-                                        <option value="-4">-4</option>
-                                        <option value="-3">-3</option>
-                                        <option value="-2">-2</option>
-                                        <option value="-1">-1</option>
-                                        <option value="=" selected>=</option>
-                                        <option value="+1">+1</option>
-                                        <option value="+2">+2</option>
-                                        <option value="+3">+3</option>
-                                        <option value="+4">+4</option>
-                                        <option value="+5">+5</option>
-                                        <option value="+6">+6</option>
-                                    </select>
-                                </span>
-                            </p>
-                        </div>
 
-                        <div class="column is-6">
-                            <strong>Lead</strong> is a two character entry suit char (as explained in the bidding section). and the single number card value as explained in the hand entry section. Ie: c8 for eight of clubs.
+                        <div class="column">
+                            <div class="content">
+                                <p>
+                                    <strong>Table Result</strong>: If a normal result is obtained at the table, enter it here. The format is consistent. First character is level of play, second is the suit, if doubled or redoubled enter an <strong>X</strong>(or <strong>XX</strong> for redouble) and finally as result '<strong>=</strong>', '<strong>+2</strong>', '<strong>-1</strong>'.
+                                    <ul>
+                                        <li><strong>4hx=</strong> 4 hearts doubled, just made</li>
+                                        <li><strong>3s-2</strong> 3 spades, down 2</li>
+                                        <li><strong>1n+2</strong> 1 no trump, plus 2</li>
+                                    </ul>
+                                </p>
+                                <p>
+                                    <strong>Lead</strong> is a two character entry suit char (as explained in the bidding section). and the single number card value as explained in the hand entry section. Ie: <strong>c8</strong> for eight of clubs.<br>
+                                </p>
+                            </div>
                         </div>
                     </div>
 

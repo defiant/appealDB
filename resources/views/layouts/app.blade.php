@@ -8,10 +8,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'AppealDB') }}</title>
+    <title>AppealDB</title>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    @stack('css')
 
     <!-- Scripts -->
     <script>
@@ -134,5 +135,6 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    @stack('js')
 </body>
 </html>
