@@ -84,7 +84,7 @@
                             </div>
                         @endif
                     @endforeach
-                    @if($row*4 > $k)
+                    @if($row*4 > $k && $k % 4 !== 3)
                         </div>
                     @endif
 
