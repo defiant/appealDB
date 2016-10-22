@@ -61,6 +61,7 @@ class HomeController extends Controller
 
         $appeal = new Appeal();
         $appeal->category_id = $request->get('appeal_category');
+        $appeal->user_id = Auth::user()->id;
         $appeal->player_north = $request->get('player_north');
         $appeal->player_south = $request->get('player_south');
         $appeal->player_east = $request->get('player_east');
@@ -100,6 +101,7 @@ class HomeController extends Controller
     {
         $p = [14 => 'A', 13=>'K', 12=>'Q', 11=>'J', 10=>'T'];
         $faces = $numbers = [];
+        $hand = self::removeWhiteSpace($hand, '');
         $arr = str_split(strtoupper($hand));
         foreach($arr as $k => $v){
             if(is_numeric($v)){
@@ -145,5 +147,169 @@ class HomeController extends Controller
         );
 
         return $str;
+    }
+
+    protected static function getScore($contract, $vul = false)
+    {
+        $contract = strtoupper($contract);
+        $score = 0;
+
+        if($contract == 'P'){
+            return $score;
+        }
+
+        $dbl = $rdbl = false;
+        $minors = ['C', 'D'];
+
+        $tricksRequired = 6 + substr($contract, 0, 1);
+
+        $level = substr($contract, 0, 1);
+        $trump = substr($contract, 1, 1);
+
+
+        foreach(['=', '+', '-'] as $sign){
+            $pos = strpos($contract, $sign);
+            if($pos){
+                $made = $sign == '=' ? 0 : substr($contract, $pos);
+            }
+        }
+
+        if(strpos($contract, 'XX')){
+            $rdbl = true;
+        }elseif(strpos($contract, 'X')){
+            $dbl = true;
+        }
+
+        $tricksTaken = $tricksRequired + $made;
+
+        if($tricksRequired <= $tricksTaken){
+            if(in_array($trump, $minors)){
+                $score += $level * 20;
+            }else{
+                $score += $level * 30;
+                if($trump == 'N'){
+                    $score += 10;  // For NT, add a 10 point bonus.
+                }
+            }
+
+            if($dbl){
+                $score *= 2;
+            }elseif($rdbl){
+                $score *= 4;
+            }
+
+            if($score >= 100){
+                if($vul){
+                    $score += 500;
+                }else{
+                    $score += 300;
+                }
+
+                if($tricksTaken === 12){
+                    if($vul){
+                        $score += 750;
+                    }else{
+                        $score += 500;
+                    }
+                }elseif($tricksTaken === 13){
+                    if($vul){
+                        $score += 1500;
+                    }else{
+                        $score += 1000;
+                    }
+                }
+            }else{
+                $score += 50;
+            }
+
+            if($dbl){
+                $score += 50;
+            }elseif($rdbl){
+                $score += 100;
+            }
+
+            // Add over trick scores
+            $overTricks = $tricksTaken - $tricksRequired;
+            if($dbl){
+                if($vul){
+                    $score += $overTricks * 200;
+                }else{
+                    $score += $overTricks * 100;
+                }
+            }elseif($rdbl){
+                if($vul){
+                    $score += $overTricks * 400;
+                }else{
+                    $score += $overTricks * 200;
+                }
+            }else{
+                if(in_array($trump, $minors)){
+                    $score += $overTricks * 20;
+                }else{
+                    $score += $overTricks * 30;
+                }
+            }
+        }else{
+
+            $underTricks = $tricksRequired - $tricksTaken;
+            if($rdbl){
+                if($vul) {
+                    $score -= 400 + ($underTricks - 1) * 600;
+                }else{
+                    $score -= 200 + ($underTricks - 1) * 400;
+                    if($underTricks > 3)
+                        $score -= ($underTricks - 3) * 200;
+                }
+            }elseif($dbl){
+                if($vul) {
+                    $score -= 200 + ($underTricks - 1) * 300;
+                }else{
+                    $score -= 100 + ($underTricks - 1) * 200;
+                    if($underTricks > 3)
+                        $score -= ($underTricks - 3) * 100;
+                }
+            }else{
+                if($vul){
+                    $score -= $underTricks * 100;
+                }else{
+                    $score -= $underTricks * 50;
+                }
+            }
+        }
+
+        return $score;
+    }
+
+    public function resultToHuman($contract)
+    {
+        $contract = strtoupper($contract);
+
+        if($contract == 'P'){
+            return 'Passed out';
+        }
+
+        $suits = ['C' => 'Clubs', 'D' => 'Diamonds', 'H' => 'Hearts', 'S' => 'Spades', 'N' => 'No Trump'];
+
+        $level = substr($contract, 0, 1);
+        $suit = substr($contract, 1, 1);
+
+        $penalty = '';
+        if(substr($contract, 2, 1) == 'X'){
+            $penalty = 'doubled';
+            if(substr($contract, 3, 1) == 'X'){
+                $penalty = 'redoubled';
+            }
+        }
+
+        $result = '';
+        if($x = strpos($contract, '+')){
+            $result = "made plus ".substr($contract, $x+1, 1);
+        }elseif($x = strpos($contract, '-')){
+            $result = "down ".substr($contract, $x+1, 1);
+        }elseif($x = strpos($contract, '=')){
+            $result = 'just made';
+        }
+
+        return "$level {$suits[$suit]} $penalty, $result";
     }
 }
