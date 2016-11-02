@@ -12,22 +12,28 @@ $(".bid_card, .call_card").click(function(e){
     bidHistory.push($(this).data("bid-string"));
     var cardIndex = 1 + $(".bid_card").index($(this));
 
+    // Bid indexes is used to keep record for undos but only suit bids
     if($(this).hasClass('bid_card')) {
         bidIndexes.push(cardIndex);
     }
 
-    $( ".bid_card:lt(" + cardIndex  + ")" ).addClass("disabled");
-
-    if (canDouble()) {
-        $(".double").removeClass("disabled");
+    // if we have 3 passes auction ended, disable all bidding cards
+    if(bidHistory.slice(-3).equals(['P', 'P', 'P']) && bidHistory.length > 3){
+        $(".bid_card, .call_card").addClass("disabled");
     }else{
-        $(".double").addClass("disabled");
-    }
+        $( ".bid_card:lt(" + cardIndex  + ")" ).addClass("disabled");
 
-    if (canRedouble()) {
-        $(".redouble").removeClass("disabled");
-    }else{
-        $(".redouble").addClass("disabled");
+        if (canDouble()) {
+            $(".double").removeClass("disabled");
+        }else{
+            $(".double").addClass("disabled");
+        }
+
+        if (canRedouble()) {
+            $(".redouble").removeClass("disabled");
+        }else{
+            $(".redouble").addClass("disabled");
+        }
     }
 
     if(bidHistory.length > 0){
@@ -71,6 +77,8 @@ $("#undo").click(function(){
     }else{
         $(".redouble").addClass("disabled");
     }
+
+    $(".pass").removeClass("disabled")
 
     updateBiddingTable();
     updateBiddingData();
@@ -202,3 +210,35 @@ function canRedouble(){
 
     return false;
 }
+
+
+// Utility function for comparing arrays
+// Warn if overriding existing method
+if(Array.prototype.equals)
+    console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+// attach the .equals method to Array's prototype to call it on any array
+Array.prototype.equals = function (array) {
+    // if the other array is a falsy value, return
+    if (!array)
+        return false;
+
+    // compare lengths - can save a lot of time
+    if (this.length != array.length)
+        return false;
+
+    for (var i = 0, l=this.length; i < l; i++) {
+        // Check if we have nested arrays
+        if (this[i] instanceof Array && array[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!this[i].equals(array[i]))
+                return false;
+        }
+        else if (this[i] != array[i]) {
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            return false;
+        }
+    }
+    return true;
+}
+// Hide method from for-in loops
+Object.defineProperty(Array.prototype, "equals", {enumerable: false});
