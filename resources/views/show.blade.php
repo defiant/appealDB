@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title'){{$appeal->event->event_name}} appeal records - AppealDB.com @endsection
+
+@section('meta_description')Appeal records for the event {{$appeal->event->event_name}} ({{$appeal->event->session}}) concerning {{config('bridge.categories')[$appeal->category_id]}} at board {{$appeal->board->board_no}}. The appeal was at {{$appeal->appeal_time->toFormattedDateString()}}. @if($appeal->laws) Related laws: {{$appeal->laws}} @endif @endsection
+
 @section('content')
     <div class="container">
         <div class="columns">
@@ -108,7 +112,8 @@
                     <p>
                         <strong>Level</strong>: {{$appeal->event->level}} <br>
                         <strong>NBO</strong>: {{$appeal->event->nbo}} <br>
-                        <strong>Category</strong>:
+                        <strong>Category</strong>: {{config('bridge.categories')[$appeal->category_id]}} <br>
+                        <strong>Scoring</strong>: {{config('bridge.scoring')[$appeal->scoring_id]}}
                     </p>
                     <p>
                         <strong>Director</strong>: {{$appeal->director}} <br>
@@ -144,6 +149,16 @@
                     <h2>Decision</h2>
                     @markdown($appeal->decision)
                 </div>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column has-text-centered">
+                <small>This document was created at <strong>{{$appeal->created_at->format('F j, Y - G:i')}}</strong>
+                    @if($appeal->created_at->ne($appeal->updated_at))
+                        and last updated at <strong>{{$appeal->updated_at->format('F j, Y - G:i')}}</strong>
+                    @endif
+                </small>
             </div>
         </div>
     </div>

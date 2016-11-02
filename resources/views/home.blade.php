@@ -14,6 +14,7 @@
                     <thead>
                     <tr>
                         <th>Event</th>
+                        <th>Category</th>
                         <th>Date</th>
                     </tr>
                     </thead>
@@ -24,6 +25,7 @@
                                     {{$appeal->event->event_name}} - {{$appeal->event->session}}
                                 </a>
                             </td>
+                            <td>{{config('bridge.categories')[$appeal->category_id]}}</td>
                             <td>{{$appeal->appeal_time->toFormattedDateString()}}</td>
                         </tr>
                     @endforeach

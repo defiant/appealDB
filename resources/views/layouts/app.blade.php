@@ -8,7 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>AppealDB</title>
+    <meta name="description" content="@yield('meta_description', '')">
+    <title>@yield('title', 'AppealDB')</title>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
@@ -140,7 +141,7 @@
                 <p>
                     <strong>AppealDB</strong> by <a href="http://sinantaga.com">Sinan Taga</a>. The source code is licensed
                     <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-                    is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC ANS 4.0</a>.
+                    is licensed <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
                 </p>
                 <p>
                     <a class="icon" href="https://github.com/">
