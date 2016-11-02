@@ -112,3 +112,17 @@
     }
   }
 }
+
+
+.alerts{
+  margin-top: 30px;
+}
+
+.alerted-bid{
+  font-weight: bolder;
+
+  &:after{
+    color: red;
+    content: ' !';
+  }
+}

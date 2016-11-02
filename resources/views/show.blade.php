@@ -79,30 +79,36 @@
                         <div class="column w has-text-centered">West</div>
                     </div>
 
-                    @foreach($auction as $k => $bid)
-                        @if($k % 4 === 0)
-                            <div class="columns is-mobile auction-row auction-row__{{$row++}}">
-                        @endif
-                                <div class="column is-one-quarter has-text-centered">{{strtoupper($bid)}}</div>
-                        @if($k % 4 === 3)
-                            </div>
-                        @endif
-                    @endforeach
-                    @if($row*4 > $k && $k % 4 !== 3)
+                    <div id="auction">
+                        @foreach($auction as $k => $bid)
+                            @if($k % 4 === 0)
+                                <div class="columns is-mobile auction-row auction-row__{{$row++}}">
+                                    @endif
+                                    <div class="column is-one-quarter has-text-centered @if(array_key_exists($bid, $alerts) === true) alerted-bid @endif" data-bid="{{$bid}}">
+                                        {{strtoupper($bid)}}
+                                    </div>
+                                    @if($k % 4 === 3)
+                                </div>
+                            @endif
+                        @endforeach
+
+                        {{-- End with a correct closing tag--}}
+                        @if($row*4 > $k && $k % 4 !== 3)
                         </div>
-                    @endif
+                        @endif
+                    </div>
 
                 </div>
 
-                <div class="alerts content">
-                    @if($alerts)
-                        <ol>
-                            @foreach($alerts as $alert)
-                                <li>{{$alert}}</li>
+                @if($alerts)
+                    <div class="alerts">
+                        <ul>
+                            @foreach($alerts as $alert => $explanation)
+                                <li><strong>{{$alert}}</strong>: {{$explanation}}</li>
                             @endforeach
-                        </ol>
-                    @endif
-                </div>
+                        </ul>
+                    </div>
+                @endif
             </div>
 
             <div class="column is-7">

@@ -30,7 +30,7 @@ class HomeController extends Controller
         $data['appeal'] = Appeal::with(['event', 'board'])->findOrFail($id);
         $data['hands'] = $this->handToArray($data['appeal']->board->hand);
         $data['auction'] = array_merge(array_fill(0, $data['appeal']->board->dealer , ''), explode(' ' ,$data['appeal']->board->bidding));
-        $data['alerts'] = explode('!', $data['appeal']->board->alerts);
+        $data['alerts'] = json_decode($data['appeal']->board->alerts, true);
         $data['row'] = 0;
 
         return view('show', $data);
@@ -53,7 +53,7 @@ class HomeController extends Controller
         $board->screen = (bool) $request->get('screen');
         $board->hand = $this->makeHand($request->get('deal'));
         $board->bidding = $this->cleanBidding($request->get('bidding'));
-        $board->alerts = $this->getAlerts($request->get('alert'));
+        $board->alerts = json_encode($request->get('alert'));
         $board->lead = $request->get('lead', null);
         $board->table_result = $request->get('table_result', null);
 
@@ -114,11 +114,6 @@ class HomeController extends Controller
         krsort($faces);
         rsort($numbers);
         return implode('', $faces) . implode('', $numbers);
-    }
-
-    protected function getAlerts($alerts, $sep = '!_!')
-    {
-        return $alerts ? implode($sep, $alerts) : '';
     }
 
     protected function cleanBidding($biddingData)
