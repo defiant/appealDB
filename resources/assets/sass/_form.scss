@@ -9,4 +9,18 @@
       border-bottom: 1px solid $brand-info;
     }
   }
+
+  .hand-input{
+    input{
+      letter-spacing: 3px;
+    }
+  }
+}
+
+.is-error{
+  border: 1px solid red;
+}
+
+#too_many_cards{
+  display: none;
 }

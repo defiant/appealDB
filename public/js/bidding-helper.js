@@ -78,7 +78,7 @@ $("#undo").click(function(){
         $(".redouble").addClass("disabled");
     }
 
-    $(".pass").removeClass("disabled")
+    $(".pass").removeClass("disabled");
 
     updateBiddingTable();
     updateBiddingData();
@@ -104,8 +104,6 @@ $("#bidding-diagram .bidding").on('click', "div", function(e){
     $inputDiv.find("label span").text("(" + bid + ")");
     $inputField.val(''); // clear input field
     $inputField.data("bid", bid );
-
-    /*console.log( $( this ).text() );*/
 });
 
 $("#save_alert").click(function(){
@@ -123,7 +121,6 @@ $("#save_alert").click(function(){
     elForm.append("<input name='alert[" + elExplanation.data("bid") + "]' type='hidden' value='" + explanation + "'>");
     var insert = $("<div id='alert-" + elExplanation.data("bid") + "'><strong>"+elExplanation.data("bid") + ": </strong> <span></span></div>");
 
-    console.log(insert);
     insert.find("span").text(explanation);
     insert.appendTo(elAlerts);
 
@@ -138,9 +135,59 @@ $("#cancel_alert").click(function(e){
     $("#explain_bid_input").val('');
 });
 
+// write out bidding data when submitting
 $("#appeal_form").submit(function(){
     $("#bidding-data").val(bidHistory.join(' '));
 });
+
+// Allow only valid chars
+$(".hand-input input").keyup(function (e) {
+    var validChars = ['a', 'k', 'q', 'j', 't', 'x'];
+    var char = $(this).val().substr(-1);
+
+    if(validChars.indexOf(char.toLowerCase()) == -1){
+        if(parseInt(char) > 1 && parseInt(char) < 10){
+            return;
+        }
+        $(this).val($(this).val().slice(0, -1));
+    }
+});
+
+// Remove duplicates check hand sizes
+$(".hand-input input").blur(function(){
+    function dup(x, n, s){
+        if(x == 'x' || x == 'X') {
+            return true;
+        }
+
+        return s.indexOf(x) == n;
+    }
+
+    var newVal = $(this).val().split("").filter(dup).join("");
+    $(this).val(newVal);
+
+
+    var parent = $(this).parent();
+
+    if(getLen(parent.find("input")) > 13){
+        parent.addClass("is-error");
+        $("#too_many_cards").show();
+        $("#submit").prop( "disabled", true).addClass('is-disabled');
+    }else{
+        parent.removeClass("is-error");
+        $("#too_many_cards").hide();
+        $("#submit").prop( "disabled", false).removeClass('is-disabled');
+    }
+});
+
+function getLen(o){
+    var i = 0;
+    o.each(function () {
+            i += $(this).val().length;
+        }
+    );
+    return i;
+}
 
 // remove alerted bid
 function removeAlerted(bid){

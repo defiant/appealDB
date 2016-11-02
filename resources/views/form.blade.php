@@ -234,7 +234,7 @@
                             <div id="hand_diagram" class="hand_digram">
                                 <div class="columns">
                                     <div class="column is-one-third"></div>
-                                    <div class="column is-one-third">
+                                    <div class="column is-one-third hand-input" id="hand-north">
                                         <p>North</p>
                                         <input type="text" name="deal[n][s]" id="deal[n][s]" class="input" placeholder="♠">
                                         <input type="text" name="deal[n][h]" id="deal[n][h]" class="input" placeholder="♥">
@@ -244,7 +244,7 @@
                                     <div class="column is-one-third"></div>
                                 </div>
                                 <div class="columns">
-                                    <div class="column is-one-third">
+                                    <div class="column is-one-third hand-input" id="hand-west">
                                         <p>West</p>
                                         <input type="text" name="deal[w][s]" id="deal[w][s]" class="input" placeholder="♠">
                                         <input type="text" name="deal[w][h]" id="deal[w][h]" class="input" placeholder="♥">
@@ -252,9 +252,13 @@
                                         <input type="text" name="deal[w][c]" id="deal[w][c]" class="input" placeholder="♣">
                                     </div>
 
-                                    <div class="column is-one-third"></div>
-
                                     <div class="column is-one-third">
+                                        <div class="notification is-danger" id="too_many_cards">
+                                            The hand with the red box has more than 13 cards.
+                                        </div>
+                                    </div>
+
+                                    <div class="column is-one-third hand-input" id="hand-east">
                                         <p>East</p>
                                         <input type="text" name="deal[e][s]" id="deal[e][s]" class="input" placeholder="♠">
                                         <input type="text" name="deal[e][h]" id="deal[e][h]" class="input" placeholder="♥">
@@ -264,7 +268,7 @@
                                 </div>
                                 <div class="columns">
                                     <div class="column is-one-third"></div>
-                                    <div class="column is-one-third">
+                                    <div class="column is-one-third hand-input" id="hand-south">
                                         <p>South</p>
                                         <input type="text" name="deal[s][s]" id="deal[s][s]" class="input" placeholder="♠">
                                         <input type="text" name="deal[s][h]" id="deal[s][h]" class="input" placeholder="♥">
@@ -482,16 +486,13 @@
                         </div>
                     </div>
 
-
-
-
                 </fieldset>
 
                 {{--Auction data is saved to this form element--}}
                 <input type="hidden" name="bidding" id="bidding-data">
 
                 <p class="control">
-                    <button class="button is-primary is-fullwidth" type="submit">Save this appeal!</button>
+                    <button class="button is-primary is-fullwidth" type="submit" id="submit">Save this appeal!</button>
                 </p>
                 {{csrf_field()}}
             </form>
