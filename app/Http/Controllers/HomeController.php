@@ -30,9 +30,7 @@ class HomeController extends Controller
         $data['appeal'] = Appeal::with(['event', 'board'])->findOrFail($id);
         $data['hands'] = $this->handToArray($data['appeal']->board->hand);
         $data['auction'] = array_merge(array_fill(0, $data['appeal']->board->dealer , ''), explode(' ' ,$data['appeal']->board->bidding));
-        $alerts = explode('!', $data['appeal']->board->alerts);
-        array_shift($alerts);
-        $data['alerts'] = $alerts;
+        $data['alerts'] = explode('!', $data['appeal']->board->alerts);
         $data['row'] = 0;
 
         return view('show', $data);
@@ -55,13 +53,13 @@ class HomeController extends Controller
         $board->screen = (bool) $request->get('screen');
         $board->hand = $this->makeHand($request->get('deal'));
         $board->bidding = $this->cleanBidding($request->get('bidding'));
-        $board->alerts = $this->removeWhiteSpace($request->get('alerts'), ' ');
+        $board->alerts = $this->getAlerts($request->get('alert'));
         $board->lead = $request->get('lead', null);
         $board->table_result = $request->get('table_result', null);
 
         $appeal = new Appeal();
         $appeal->category_id = $request->get('appeal_category');
-        $appeal->user_id = Auth::user()->id;
+        $appeal->user_id = \Auth::user()->id;
         $appeal->player_north = $request->get('player_north');
         $appeal->player_south = $request->get('player_south');
         $appeal->player_east = $request->get('player_east');
@@ -74,6 +72,8 @@ class HomeController extends Controller
         $appeal->decision = $request->get('decision');
         $appeal->laws = $request->get('laws');
         $appeal->appeal_time = $request->get('date');
+        $appeal->scoring_id = $request->get('scoring');
+        $appeal->ruling_upheld = $request->get('ruling_upheld');
 
         $appeal->save();
         $appeal->event()->save($event);
@@ -82,7 +82,7 @@ class HomeController extends Controller
         return redirect('/'.$appeal->id);
     }
 
-    // todo: refactor: move these out of the controller
+    // todo: refactor: move all these out of the controller
     protected function makeHand($hand)
     {
         $ret = ['n' => '', 'w' => '', 'e' => '', 's' => ''];
@@ -114,6 +114,11 @@ class HomeController extends Controller
         krsort($faces);
         rsort($numbers);
         return implode('', $faces) . implode('', $numbers);
+    }
+
+    protected function getAlerts($alerts, $sep = '!_!')
+    {
+        return $alerts ? implode($sep, $alerts) : '';
     }
 
     protected function cleanBidding($biddingData)
@@ -303,9 +308,9 @@ class HomeController extends Controller
 
         $result = '';
         if($x = strpos($contract, '+')){
-            $result = "made plus ".substr($contract, $x+1, 1);
+            $result = 'made plus '.substr($contract, $x+1, 1);
         }elseif($x = strpos($contract, '-')){
-            $result = "down ".substr($contract, $x+1, 1);
+            $result = 'down '.substr($contract, $x+1, 1);
         }elseif($x = strpos($contract, '=')){
             $result = 'just made';
         }

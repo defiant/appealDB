@@ -1,0 +1,130 @@
+
+
+.bidding_box{
+  width: 300px;
+  cursor: pointer;
+
+  .bid_row, .calls{
+    display: flex;
+  }
+
+  .call_card, .bid_card{
+    text-align: center;
+    line-height: 2;
+    font-size: 18px;
+    background-color: whitesmoke;
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  .call_card{
+    width: 33.33%;
+    color: white;
+  }
+
+  .bid_card{
+    width: 20%;
+  }
+
+  .calls{
+    .pass{
+      background-color: $pass;
+    }
+
+    .double{
+      background-color: $double;
+    }
+
+    .redouble{
+      background-color: $redouble;
+    }
+
+    .disabled{
+      visibility: hidden;
+    }
+  }
+
+  .bids{
+    .notrumps{
+      color: $notrump;
+    }
+
+    .spades{
+      color: $spade;
+    }
+
+    .hearts{
+      color: $heart;
+    }
+
+    .diamonds{
+      color: $diamond;
+    }
+
+    .clubs{
+      color: $club;
+    }
+  }
+
+  .bids, .calls{
+    .disabled{
+      cursor: not-allowed;
+      color: silver;
+    }
+  }
+}
+
+.bidding-diagram{
+  width: 160px;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: auto;
+
+  .diagram-header{
+    display: flex;
+    text-align: center;
+    line-height: 2;
+    div{
+      width: 25%;
+    }
+  }
+
+  .bidding_wrapper{
+    min-height: 120px;
+    border: 1px solid silver;
+  }
+
+  .bidding{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+
+    div{
+      width: 25%;
+      text-align: center;
+      overflow: hidden;
+      cursor: pointer;
+      
+      &:hover{
+        background-color: silver;
+      }
+    }
+  }
+
+  .undo_button{
+    margin-top: 20px;
+  }
+}
+
+
+.explain_bid{
+  display: none;
+
+  label span{
+    font-weight: lighter;
+  }
+}
+
+
+
+

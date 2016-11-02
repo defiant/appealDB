@@ -5,7 +5,9 @@
 @endpush
 
 @push('js')
+    <script src="/js/jquery.min.js"></script>
     <script src="/js/flatpickr.min.js"></script>
+    <script src="/js/bidding-helper.js"></script>
     <script>
         document.getElementById("appeal_date").flatpickr({
             altInput: true,
@@ -45,23 +47,36 @@
                         </div>
 
                         <div class="column">
+                            <label for="scoring" class="label">Scoring</label>
+                            <p class="control">
+                                <span class="select">
+                                    <select id="id_scoring" name="scoring">
+                                        @foreach(config('bridge.scoring') as $key => $score)
+                                            <option value="{{$key}}">{{$score}}</option>
+                                        @endforeach
+                                    </select>
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="column">
                             <label for="event_level" class="label">Event Level</label>
                             <p class="control">
-                            <span class="select">
-                                <select name="event_level" id="event_level">
-                                    <option value="international">International</option>
-                                    <option value="national">National</option>
-                                    <option value="regional">Regional</option>
-                                    <option value="local">Local (Club)</option>
-                                </select>
-                            </span>
+                                <span class="select">
+                                    <select name="event_level" id="event_level">
+                                        <option value="international">International</option>
+                                        <option value="national">National</option>
+                                        <option value="regional">Regional</option>
+                                        <option value="local">Local (Club)</option>
+                                    </select>
+                                </span>
                             </p>
                         </div>
                     </div>
                 </fieldset>
 
                 <fieldset>
-                    <legend>Info</legend>
+                    <legend>General Information</legend>
 
                     <div class="columns">
                         <div class="column">
@@ -130,6 +145,20 @@
                         <textarea name="facts" id="facts" cols="30" rows="10" class="textarea"></textarea>
                     </p>
 
+                    <div class="columns">
+                        <div class="column">
+                            <p class="control">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="upheld">
+                                    Ruling Upheld?
+                                </label>
+                            </p>
+                        </div>
+                        <div class="column is-9">
+                            Did the Appeal Committe upheld the director's ruling? If yes check this box. It will help us better categorize appeals.
+                        </div>
+                    </div>
+
                     <label for="ruling" class="label">Ruling</label>
                     <p class="control">
                         <textarea name="ruling" id="ruling" cols="30" rows="10" class="textarea"></textarea>
@@ -158,7 +187,7 @@
                         <div class="column">
                             <label for="board_no" class="label">Board Number</label>
                             <p class="control">
-                                <input type="number" name="board_no" id="board_no" class="input" placeholder="Board NO">
+                                <input type="number" name="board_no" id="board_no" class="input" placeholder="Board NO" min="1">
                             </p>
                         </div>
                         <div class="column">
@@ -267,14 +296,120 @@
                     </div>
 
                     <hr>
+                    <h3 class="title is-3">Bidding</h3>
                     <div class="columns">
-                        <div class="column is-8">
-                            <label for="bidding" class="label">Bidding</label>
-                            <p class="control">
-                                <textarea name="bidding" id="bidding" cols="30" rows="10" class="textarea"></textarea>
-                            </p>
+                        <div class="column is-4 is-mobile">
+                            <div class="bidding_box" id="bidding_box">
+                                <div class="calls">
+                                    <div data-bid-string="P" class="call_card pass">Pass</div>
+                                    <div data-bid-string="X" class="call_card double disabled">Double</div>
+                                    <div data-bid-string="XX" class="call_card redouble disabled">Redouble</div>
+                                </div>
+
+                                <div class="bids">
+                                    <div class="bid_row">
+                                        <div data-bid-string="1C" class="bid_card clubs">1♣</div>
+                                        <div data-bid-string="1D" class="bid_card diamonds">1♦</div>
+                                        <div data-bid-string="1H" class="bid_card hearts">1♥</div>
+                                        <div data-bid-string="1S" class="bid_card spades">1♠</div>
+                                        <div data-bid-string="1N" class="bid_card notrump">1NT</div>
+                                    </div>
+                                    <div class="bid_row">
+                                        <div data-bid-string="2C" class="bid_card clubs">2♣</div>
+                                        <div data-bid-string="2D" class="bid_card diamonds">2♦</div>
+                                        <div data-bid-string="2H" class="bid_card hearts">2♥</div>
+                                        <div data-bid-string="2S" class="bid_card spades">2♠</div>
+                                        <div data-bid-string="2N" class="bid_card notrump">2NT</div>
+                                    </div>
+                                    <div class="bid_row">
+                                        <div data-bid-string="3C" class="bid_card clubs">3♣</div>
+                                        <div data-bid-string="3D" class="bid_card diamonds">3♦</div>
+                                        <div data-bid-string="3H" class="bid_card hearts">3♥</div>
+                                        <div data-bid-string="3S" class="bid_card spades">3♠</div>
+                                        <div data-bid-string="3N" class="bid_card notrump">3NT</div>
+                                    </div>
+                                    <div class="bid_row">
+                                        <div data-bid-string="4C" class="bid_card clubs">4♣</div>
+                                        <div data-bid-string="4D" class="bid_card diamonds">4♦</div>
+                                        <div data-bid-string="4H" class="bid_card hearts">4♥</div>
+                                        <div data-bid-string="4S" class="bid_card spades">4♠</div>
+                                        <div data-bid-string="4N" class="bid_card notrump">4NT</div>
+                                    </div>
+                                    <div class="bid_row">
+                                        <div data-bid-string="5C" class="bid_card clubs">5♣</div>
+                                        <div data-bid-string="5D" class="bid_card diamonds">5♦</div>
+                                        <div data-bid-string="5H" class="bid_card hearts">5♥</div>
+                                        <div data-bid-string="5S" class="bid_card spades">5♠</div>
+                                        <div data-bid-string="5N" class="bid_card notrump">5NT</div>
+                                    </div>
+                                    <div class="bid_row">
+                                        <div data-bid-string="6C" class="bid_card clubs">6♣</div>
+                                        <div data-bid-string="6D" class="bid_card diamonds">6♦</div>
+                                        <div data-bid-string="6H" class="bid_card hearts">6♥</div>
+                                        <div data-bid-string="6S" class="bid_card spades">6♠</div>
+                                        <div data-bid-string="6N" class="bid_card notrump">6NT</div>
+                                    </div>
+                                    <div class="bid_row">
+                                        <div data-bid-string="7C" class="bid_card clubs">7♣</div>
+                                        <div data-bid-string="7D" class="bid_card diamonds">7♦</div>
+                                        <div data-bid-string="7H" class="bid_card hearts">7♥</div>
+                                        <div data-bid-string="7S" class="bid_card spades">7♠</div>
+                                        <div data-bid-string="7N" class="bid_card notrump">7NT</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="column is-4">
+                        <div class="column is-3">
+
+                            <div class="columns">
+                                <div class="column">
+
+                                    <div class="bidding-diagram" id="bidding-diagram">
+                                        <div class="diagram-header auction-header none">
+                                            <div class="n">N</div>
+                                            <div class="e">E</div>
+                                            <div class="s">S</div>
+                                            <div class="w">W</div>
+                                        </div>
+
+                                        <div class="bidding_wrapper">
+                                            <div class="bidding" id="bidding">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="undo_button is-clearfix">
+                                            <button id="undo" class="button is-fullwidth is-disabled" type="button">Undo Last Bid</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="column">
+                            <div class="columns">
+                                <div id="alerts">
+
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="explain_bid" id="explain_bid">
+                                        <label for="explain_bid_input" class="label">Explain Bid <span></span></label>
+                                        <p class="control">
+                                            <input type="text" class="input" id="explain_bid_input">
+                                        </p>
+                                        <p class="control">
+                                            <button type="button" class="button is-small" id="save_alert">Ok</button>
+                                            <button type="button" class="button is-small" id="cancel_alert">Cancel</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{--<div class="column is-4">
                             <div class="content">
                                 <p>
                                     All bids are separated by a white space.
@@ -293,10 +428,10 @@
                                 <p>A valid bid for a suit is a two character string. For example 1&hearts; is represented as 1h. And one no trump as 1n</p>
                                 <p>If you need to alert a bid you can put a ! (exclamation) character. Ie: 2c!</p>
                             </div>
-                        </div>
+                        </div>--}}
                     </div>
 
-                    <hr>
+                    {{--<hr>
                     <div class="columns">
                         <div class="column is-8">
                             <label for="alerts" class="label">Alerts</label>
@@ -314,7 +449,7 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    </div>--}}
 
                     <hr>
                     <div class="columns">
@@ -352,11 +487,13 @@
 
                 </fieldset>
 
-                {{csrf_field()}}
+                {{--Auction data is saved to this form element--}}
+                <input type="hidden" name="bidding" id="bidding-data">
 
                 <p class="control">
-                    <button class="button is-primary is-fullwidth">Save this appeal!</button>
+                    <button class="button is-primary is-fullwidth" type="submit">Save this appeal!</button>
                 </p>
+                {{csrf_field()}}
             </form>
         </div>
     </div>
