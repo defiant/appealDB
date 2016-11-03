@@ -84,7 +84,7 @@
                             @if($k % 4 === 0)
                                 <div class="columns is-mobile auction-row auction-row__{{$row++}}">
                                     @endif
-                                    <div class="column is-one-quarter has-text-centered @if(array_key_exists($bid, $alerts) === true) alerted-bid @endif" data-bid="{{$bid}}">
+                                    <div class="column is-one-quarter has-text-centered @if($alerts && array_key_exists($bid, $alerts) === true) alerted-bid @endif" data-bid="{{$bid}}">
                                         {{strtoupper($bid)}}
                                     </div>
                                     @if($k % 4 === 3)
