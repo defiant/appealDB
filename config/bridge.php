@@ -3,7 +3,7 @@ return [
     'categories' => [
         1 => 'Misinformation',
         2 => 'Unauthorised Information',
-        3 => 'Tempo, Break in Tempo',
+        3 => 'Hesitation, Tempo',
         4 => 'Illegal Deception',
         5 => 'Contested or Disputed Claim',
         6 => 'Inadvertent call',
