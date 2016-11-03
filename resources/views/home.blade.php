@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title') AppealDB - Database for Bridge Appeals @endsection
+@section('meta_description') An online database for Bridge Appeals where you can view and discuss appeal decision from various tourmaments.@endsection
+
 @section('content')
     <div class="container">
         <h1 class="title is-1">AppealDB</h1>
@@ -36,7 +39,7 @@
                 <div class="content">
                     <h2>What and Why?</h2>
                     <p>
-                        <strong>AppealDB</strong> is a an online archive for Bridge Appeals. <br> It
+                        <strong>AppealDB</strong> is a an online archive for Bridge Appeals. <br>
                         The reason for this application is store various appeals decision so it can be referenced and discussed.
                     </p>
 
