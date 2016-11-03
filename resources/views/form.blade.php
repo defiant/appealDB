@@ -145,6 +145,21 @@
                         <textarea name="facts" id="facts" cols="30" rows="10" class="textarea"></textarea>
                     </p>
 
+                    <label for="ruling" class="label">Ruling</label>
+                    <p class="control">
+                        <textarea name="ruling" id="ruling" cols="30" rows="10" class="textarea" placeholder="The Ruling of the director"></textarea>
+                    </p>
+
+                    <label for="appeal_reason" class="label">Appeal Reason</label>
+                    <p class="control">
+                        <textarea name="appeal_reason" id="appeal_reason" cols="30" rows="10" class="textarea" placeholder="Why did this hand appealed?"></textarea>
+                    </p>
+
+                    <label for="decision" class="label">Decision</label>
+                    <p class="control">
+                        <textarea name="decision" id="decision" cols="30" rows="10" class="textarea" placeholder="Decision of the Appeal Committee"></textarea>
+                    </p>
+
                     <div class="columns">
                         <div class="column">
                             <p class="control">
@@ -158,21 +173,6 @@
                             Did the Appeal Committe upheld the director's ruling? If yes check this box. It will help us better categorize appeals.
                         </div>
                     </div>
-
-                    <label for="ruling" class="label">Ruling</label>
-                    <p class="control">
-                        <textarea name="ruling" id="ruling" cols="30" rows="10" class="textarea"></textarea>
-                    </p>
-
-                    <label for="appeal_reason" class="label">Appeal Reason</label>
-                    <p class="control">
-                        <textarea name="appeal_reason" id="appeal_reason" cols="30" rows="10" class="textarea"></textarea>
-                    </p>
-
-                    <label for="decision" class="label">Decision</label>
-                    <p class="control">
-                        <textarea name="decision" id="decision" cols="30" rows="10" class="textarea"></textarea>
-                    </p>
 
                     <label for="laws" class="label">Relevant Laws</label>
                     <p class="control">
