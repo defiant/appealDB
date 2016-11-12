@@ -60,12 +60,14 @@ class HomeController extends Controller
         $appeal = new Appeal();
         $appeal->category_id = $request->get('appeal_category');
         $appeal->user_id = \Auth::user()->id;
+        $appeal->casebook = $request->get('casebook');
         $appeal->player_north = $request->get('player_north');
         $appeal->player_south = $request->get('player_south');
         $appeal->player_east = $request->get('player_east');
         $appeal->player_west = $request->get('player_west');
         $appeal->director = $request->get('director');
         $appeal->committee = $request->get('committee');
+        $appeal->side_appealing = $request->get('side_appealing') ?? null;
         $appeal->facts = $request->get('facts');
         $appeal->ruling = $request->get('ruling');
         $appeal->appeal_reason = $request->get('appeal_reason');

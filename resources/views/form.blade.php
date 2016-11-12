@@ -49,7 +49,7 @@
                         <div class="column">
                             <label for="scoring" class="label">Scoring</label>
                             <p class="control">
-                                <span class="select">
+                                <span class="select is-fullwidth">
                                     <select id="id_scoring" name="scoring">
                                         @foreach(config('bridge.scoring') as $key => $score)
                                             <option value="{{$key}}">{{$score}}</option>
@@ -62,7 +62,7 @@
                         <div class="column">
                             <label for="event_level" class="label">Event Level</label>
                             <p class="control">
-                                <span class="select">
+                                <span class="select is-fullwidth">
                                     <select name="event_level" id="event_level">
                                         <option value="international">International</option>
                                         <option value="national">National</option>
@@ -86,10 +86,11 @@
                                 <i class="fa fa-calendar"></i>
                             </p>
                         </div>
+
                         <div class="column">
-                            <label for="appeal_category" class="label">Appeal Caegory</label>
+                            <label for="appeal_category" class="label">Appeal Category</label>
                             <p class="control">
-                                <span class="select">
+                                <span class="select is-fullwidth">
                                     <select name="appeal_category" id="appeal_category">
                                         @foreach(config('bridge.categories') as $k => $category)
                                             <option value="{{$k}}">{{$category}}</option>
@@ -98,8 +99,16 @@
                                 </span>
                             </p>
                         </div>
+
+                        <div class="column">
+                            <label for="casebook" class="label">Casebook Name</label>
+                            <p class="control">
+                                <input type="text" name="casebook" id="casebook" class="input" placeholder="Casebook name or reference if available">
+                            </p>
+                        </div>
                     </div>
 
+                    <hr>
                     <div class="columns">
                         <div class="column">
                             <label for="player_north" class="label">North Player</label>
@@ -129,6 +138,22 @@
                             </p>
                         </div>
                     </div>
+
+                    <label class="label">Appealing Side</label>
+                    <p class="control">
+                        <label class="radio">
+                            <input type="radio" value="ns" name="side_appealing">
+                            North/South
+                        </label>
+                        <label class="radio">
+                            <input type="radio" value="ew" name="side_appealing">
+                            East/West
+                        </label>
+                        <label class="radio">
+                            <input type="radio" value="" name="side_appealing">
+                            NA
+                        </label>
+                    </p>
 
                     <label for="director" class="label">Director</label>
                     <p class="control">
@@ -162,15 +187,20 @@
 
                     <div class="columns">
                         <div class="column">
+                            <label class="label">Ruling Upheld?</label>
                             <p class="control">
-                                <label class="checkbox">
-                                    <input type="checkbox" name="upheld">
-                                    Ruling Upheld?
+                                <label class="radio">
+                                    <input type="radio" value="1" name="ruling_upheld">
+                                    Yes
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" value="0" name="ruling_upheld">
+                                    No
                                 </label>
                             </p>
                         </div>
                         <div class="column is-9">
-                            Did the Appeal Committe upheld the director's ruling? If yes check this box. It will help us better categorize appeals.
+                            Did the Appeal Committee upheld the director's ruling? If yes check this box. It will help us better categorize appeals.
                         </div>
                     </div>
 
@@ -392,6 +422,10 @@
 
                         </div>
                         <div class="column">
+                            <div class="notification">
+                                <button class="delete" type="button"></button>
+                                If you want to alert or explain a bid. You can click on the bid you want to explain to show the alert box!
+                            </div>
                             <div class="columns">
                                 <div id="alerts">
 

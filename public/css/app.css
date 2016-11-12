@@ -3957,6 +3957,15 @@ a.panel-block:hover {
     .hand-diagram .hand-row .east {
       float: right; }
 
+.alerts {
+  margin-top: 30px; }
+
+.alerted-bid {
+  font-weight: bolder; }
+  .alerted-bid:after {
+    color: red;
+    content: ' !'; }
+
 #appeal_form fieldset {
   padding: 20px;
   margin: 10px auto;
@@ -3965,6 +3974,87 @@ a.panel-block:hover {
   #appeal_form fieldset legend {
     font-size: 28px;
     border-bottom: 1px solid #8eb4cb; }
+
+#appeal_form .hand-input input {
+  letter-spacing: 3px; }
+
+.is-error {
+  border: 1px solid red; }
+
+#too_many_cards {
+  display: none; }
+
+.bidding_box {
+  width: 300px;
+  cursor: pointer; }
+  .bidding_box .bid_row, .bidding_box .calls {
+    display: flex; }
+  .bidding_box .call_card, .bidding_box .bid_card {
+    text-align: center;
+    line-height: 2;
+    font-size: 18px;
+    background-color: whitesmoke;
+    border: 1px solid black;
+    border-collapse: collapse; }
+  .bidding_box .call_card {
+    width: 33.33%;
+    color: white; }
+  .bidding_box .bid_card {
+    width: 20%; }
+  .bidding_box .calls .pass {
+    background-color: #008900; }
+  .bidding_box .calls .double {
+    background-color: #FF0000; }
+  .bidding_box .calls .redouble {
+    background-color: #5300FF; }
+  .bidding_box .calls .disabled {
+    visibility: hidden; }
+  .bidding_box .bids .notrumps {
+    color: black; }
+  .bidding_box .bids .spades {
+    color: #4200FF; }
+  .bidding_box .bids .hearts {
+    color: #FF0000; }
+  .bidding_box .bids .diamonds {
+    color: #FFA100; }
+  .bidding_box .bids .clubs {
+    color: #008900; }
+  .bidding_box .bids .disabled, .bidding_box .calls .disabled {
+    cursor: not-allowed;
+    color: silver; }
+
+.bidding-diagram {
+  width: 160px;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: auto; }
+  .bidding-diagram .diagram-header {
+    display: flex;
+    text-align: center;
+    line-height: 2; }
+    .bidding-diagram .diagram-header div {
+      width: 25%; }
+  .bidding-diagram .bidding_wrapper {
+    min-height: 120px;
+    border: 1px solid silver; }
+  .bidding-diagram .bidding {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap; }
+    .bidding-diagram .bidding div {
+      width: 25%;
+      text-align: center;
+      overflow: hidden;
+      cursor: pointer; }
+      .bidding-diagram .bidding div:hover {
+        background-color: silver; }
+  .bidding-diagram .undo_button {
+    margin-top: 20px; }
+
+.explain_bid {
+  display: none; }
+  .explain_bid label span {
+    font-weight: lighter; }
 
 /*!
  *  Font Awesome 4.6.3 by @davegandy - http://fontawesome.io - @fontawesome

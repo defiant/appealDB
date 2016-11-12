@@ -7,7 +7,11 @@ return [
         4 => 'Illegal Deception',
         5 => 'Contested or Disputed Claim',
         6 => 'Inadvertent call',
-        7 =>'Revoke'
+        7 =>'Revoke',
+        8 => 'Played Card',
+        9 => 'Fouled Board',
+        10=> 'Score Dispute',
+        99 => 'Other'
     ],
 
     'scoring' => [

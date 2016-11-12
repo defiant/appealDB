@@ -180,6 +180,10 @@ $(".hand-input input").blur(function(){
     }
 });
 
+$("button.delete").click(function(){
+    $(this).parent().fadeOut(300);
+});
+
 function getLen(o){
     var i = 0;
     o.each(function () {
