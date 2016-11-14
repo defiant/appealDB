@@ -1,29 +1,37 @@
-/*.suit{
-  font-size: large;
-}*/
+.suit{
+  font-weight: 500;
+  &:before{
+    font-family: monospace;
+    margin-right: 2px;
+  }
+}
 
-.suit0::before{
-  content: '♠';
-  font-family: monospace;
+.suit0{
   color: #000;
+  &:before{
+    content: '♠';
+  }
 }
 
-.suit1::before{
-  content: '♥';
-  font-family: monospace;
+.suit1{
   color: darkred;
+  &:before{
+    content: '♥';
+  }
 }
 
-.suit2::before{
-  content: '♦';
-  font-family: monospace;
+.suit2{
   color: orangered;
+  &:before{
+    content: '♦';
+  }
 }
 
-.suit3::before{
-  content: '♣';
-  font-family: monospace;
+.suit3{
   color: forestgreen;
+  &:before{
+    content: '♣';
+  }
 }
 
 .auction-header{

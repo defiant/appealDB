@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title') AppealDB - Database for Bridge Appeals @endsection
-@section('meta_description') An online database for Bridge Appeals where you can view and discuss appeal decision from various tourmaments.@endsection
+@section('meta_description') An online database for Bridge Appeals where you can view and discuss appeal decision from various tournaments.@endsection
 
 @section('content')
     <div class="container">

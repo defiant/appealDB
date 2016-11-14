@@ -3892,28 +3892,31 @@ a.panel-block:hover {
       .footer a:not(.icon):hover, .footer a:visited:not(.icon):hover {
         border-bottom-color: #00d1b2; }
 
-/*.suit{
-  font-size: large;
-}*/
-.suit0::before {
-  content: '♠';
-  font-family: monospace;
+.suit {
+  font-weight: 500; }
+  .suit:before {
+    font-family: monospace;
+    margin-right: 2px; }
+
+.suit0 {
   color: #000; }
+  .suit0:before {
+    content: '♠'; }
 
-.suit1::before {
-  content: '♥';
-  font-family: monospace;
+.suit1 {
   color: darkred; }
+  .suit1:before {
+    content: '♥'; }
 
-.suit2::before {
-  content: '♦';
-  font-family: monospace;
+.suit2 {
   color: orangered; }
+  .suit2:before {
+    content: '♦'; }
 
-.suit3::before {
-  content: '♣';
-  font-family: monospace;
+.suit3 {
   color: forestgreen; }
+  .suit3:before {
+    content: '♣'; }
 
 .auction-header {
   color: white;

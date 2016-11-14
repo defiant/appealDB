@@ -55,6 +55,10 @@
                 Home
             </a>
 
+            <a class="nav-item" href="/create">
+                Create New Record
+            </a>
+
             <a class="nav-item" href="/documentation">
                 Documentation
             </a>

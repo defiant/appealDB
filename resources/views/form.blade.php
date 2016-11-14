@@ -10,11 +10,14 @@
     <script src="/js/bidding-helper.js"></script>
     <script>
         document.getElementById("appeal_date").flatpickr({
+            maxDate: "today",
             altInput: true,
             altInputClass: 'input'
         });
     </script>
 @endpush
+
+@section('title')Create New Entry @endsection
 
 @section('content')
     <div class="container">
@@ -149,10 +152,10 @@
                             <input type="radio" value="ew" name="side_appealing">
                             East/West
                         </label>
-                        <label class="radio">
+                        {{--<label class="radio">
                             <input type="radio" value="" name="side_appealing">
                             NA
-                        </label>
+                        </label>--}}
                     </p>
 
                     <label for="director" class="label">Director</label>
@@ -217,7 +220,7 @@
                         <div class="column">
                             <label for="board_no" class="label">Board Number</label>
                             <p class="control">
-                                <input type="number" name="board_no" id="board_no" class="input" placeholder="Board NO" min="1">
+                                <input type="number" name="board_no" id="board_no" class="input" placeholder="Board NO" min="1" required>
                             </p>
                         </div>
                         <div class="column">

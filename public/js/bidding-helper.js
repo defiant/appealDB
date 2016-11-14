@@ -112,13 +112,13 @@ $("#save_alert").click(function(){
     var elForm = elExplanation.parents("form");
     var elAlerts = $("#alerts");
 
-    if(!explanation.trim()){
+/*    if(!explanation.trim()){
         return false;
-    }
+    }*/
 
     // Put alerts into an array of hidden input boxes;
 
-    elForm.append("<input name='alert[" + elExplanation.data("bid") + "]' type='hidden' value='" + explanation + "'>");
+    elForm.append("<input name='alert[" + elExplanation.data("bid") + "]' type='hidden' value='" + htmlEntities(explanation) + "'>");
     var insert = $("<div id='alert-" + elExplanation.data("bid") + "'><strong>"+elExplanation.data("bid") + ": </strong> <span></span></div>");
 
     insert.find("span").text(explanation);
@@ -181,7 +181,7 @@ $(".hand-input input").blur(function(){
 });
 
 $("button.delete").click(function(){
-    $(this).parent().fadeOut(300);
+    $(this).parent().fadeOut(100)
 });
 
 function getLen(o){
@@ -262,14 +262,16 @@ function canRedouble(){
     return false;
 }
 
+function htmlEntities(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&quot;');
+}
 
 // Utility function for comparing arrays
 // Warn if overriding existing method
-if(Array.prototype.equals)
-    console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+if(Array.prototype.equals) console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
 // attach the .equals method to Array's prototype to call it on any array
 Array.prototype.equals = function (array) {
-    // if the other array is a falsy value, return
+    // if the other array is a falsy value, return;
     if (!array)
         return false;
 
@@ -290,6 +292,6 @@ Array.prototype.equals = function (array) {
         }
     }
     return true;
-}
+};
 // Hide method from for-in loops
 Object.defineProperty(Array.prototype, "equals", {enumerable: false});
