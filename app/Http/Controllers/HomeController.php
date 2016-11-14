@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
         $data['appeal'] = Appeal::with(['event', 'board'])->findOrFail($id);
         $data['hands'] = $this->handToArray($data['appeal']->board->hand);
-        $data['auction'] = array_merge(array_fill(0, $data['appeal']->board->dealer , ''), explode(' ' ,$data['appeal']->board->bidding));
+        $data['auction'] = $data['appeal']->board->bidding ? array_merge(array_fill(0, $data['appeal']->board->dealer , ''), explode(' ' ,$data['appeal']->board->bidding)) : [];
         $data['alerts'] = json_decode($data['appeal']->board->alerts, true);
         $data['row'] = 0;
 
@@ -52,24 +52,26 @@ class HomeController extends Controller
         $board->vul = $request->get('vul');
         $board->screen = (bool) $request->get('screen');
         $board->hand = $this->makeHand($request->get('deal'));
-        $board->bidding = $this->cleanBidding($request->get('bidding'));
-        $board->alerts = json_encode($request->get('alert'));
+        $board->bidding = $this->cleanEntry($request->get('bidding'));
+        $board->alerts = $request->get('alert', null) ? json_encode($this->cleanEntry($request->get('alert'))) : null;
         $board->lead = $request->get('lead', null);
         $board->table_result = $request->get('table_result', null);
 
         $appeal = new Appeal();
         $appeal->category_id = $request->get('appeal_category');
         $appeal->user_id = \Auth::user()->id;
+        $appeal->casebook = $request->get('casebook');
         $appeal->player_north = $request->get('player_north');
         $appeal->player_south = $request->get('player_south');
         $appeal->player_east = $request->get('player_east');
         $appeal->player_west = $request->get('player_west');
         $appeal->director = $request->get('director');
         $appeal->committee = $request->get('committee');
-        $appeal->facts = $request->get('facts');
-        $appeal->ruling = $request->get('ruling');
-        $appeal->appeal_reason = $request->get('appeal_reason');
-        $appeal->decision = $request->get('decision');
+        $appeal->side_appealing = $request->get('side_appealing') ?? null;
+        $appeal->facts = $this->convertText($request->get('facts'));
+        $appeal->ruling = $this->convertText($request->get('ruling'));
+        $appeal->appeal_reason = $this->convertText($request->get('appeal_reason'));
+        $appeal->decision = $this->convertText($request->get('decision'));
         $appeal->laws = $request->get('laws');
         $appeal->appeal_time = $request->get('date');
         $appeal->scoring_id = $request->get('scoring');
@@ -83,6 +85,10 @@ class HomeController extends Controller
     }
 
     // todo: refactor: move all these out of the controller
+    /**
+     * @param $hand
+     * @return string
+     */
     protected function makeHand($hand)
     {
         $ret = ['n' => '', 'w' => '', 'e' => '', 's' => ''];
@@ -97,6 +103,10 @@ class HomeController extends Controller
         return implode('|', $ret);
     }
 
+    /**
+     * @param $hand
+     * @return string
+     */
     protected function sortHand($hand)
     {
         $p = [14 => 'A', 13=>'K', 12=>'Q', 11=>'J', 10=>'T'];
@@ -116,11 +126,42 @@ class HomeController extends Controller
         return implode('', $faces) . implode('', $numbers);
     }
 
-    protected function cleanBidding($biddingData)
+    /**
+     * @param $data
+     * @return array|mixed
+     */
+    protected function cleanEntry($data)
     {
-        return self::removeWhiteSpace($biddingData, ' ');
+        if(is_array($data)){
+            $ret = [];
+            foreach ($data as $k => $v) {
+                $key = str_replace(config('bridge.suits'), config('bridge.symbols'), $k);
+                $ret[$key] = $v;
+            }
+            return $ret;
+        }else{
+            $data = str_replace(config('bridge.suits'), config('bridge.symbols'), $data);
+            return self::removeWhiteSpace($data, ' ');
+        }
     }
 
+
+    /**
+     * @param $text
+     * @return mixed
+     */
+    protected function convertText($text)
+    {
+        $searchUpper = ['!S', '!H', '!D', '!C'];
+        $searchLower = ['!s', '!h', '!d', '!c'];
+        $text = str_replace($searchUpper, config('bridge.symbols'), $text);
+        return str_replace($searchLower, config('bridge.symbols'), $text);
+    }
+
+    /**
+     * @param $str
+     * @return array
+     */
     protected function handToArray($str)
     {
         $seats = ['n', 'w', 'e', 's'];
@@ -138,6 +179,11 @@ class HomeController extends Controller
         return $ret;
     }
 
+    /**
+     * @param $str
+     * @param string $delimiter
+     * @return mixed
+     */
     protected static function removeWhiteSpace($str, $delimiter='_')
     {
         $str = preg_replace(
@@ -149,6 +195,11 @@ class HomeController extends Controller
         return $str;
     }
 
+    /**
+     * @param $contract
+     * @param bool $vul
+     * @return int|string
+     */
     protected static function getScore($contract, $vul = false)
     {
         $contract = strtoupper($contract);
@@ -280,6 +331,10 @@ class HomeController extends Controller
         return $score;
     }
 
+    /**
+     * @param $contract
+     * @return string
+     */
     public function resultToHuman($contract)
     {
         $contract = strtoupper($contract);

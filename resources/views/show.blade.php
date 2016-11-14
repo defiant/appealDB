@@ -68,6 +68,7 @@
                     </div>
                 </div>
 
+                @if($auction)
                 <hr>
                 <div class="auction">
                     <h2 class="title is-4">Auction</h2>
@@ -85,7 +86,7 @@
                                 <div class="columns is-mobile auction-row auction-row__{{$row++}}">
                                     @endif
                                     <div class="column is-one-quarter has-text-centered @if($alerts && array_key_exists($bid, $alerts) === true) alerted-bid @endif" data-bid="{{$bid}}">
-                                        {{strtoupper($bid)}}
+                                        {{$bid}}
                                     </div>
                                     @if($k % 4 === 3)
                                 </div>
@@ -97,8 +98,8 @@
                         </div>
                         @endif
                     </div>
-
                 </div>
+                @endif
 
                 @if($alerts)
                     <div class="alerts">
@@ -113,9 +114,9 @@
 
             <div class="column is-7">
                 <div class="content">
-                    <p class="subtitle">{{$appeal->appeal_time->toFormattedDateString()}}</p>
-
                     <p>
+                        <strong>Appeal Date</strong>: {{$appeal->appeal_time->format('F jS, Y (l)')}} <br>
+                        @if($appeal->casebook) <strong>Casebook Name</strong>: {{$appeal->casebook}}) @endif
                         <strong>Level</strong>: {{$appeal->event->level}} <br>
                         <strong>NBO</strong>: {{$appeal->event->nbo}} <br>
                         <strong>Category</strong>: {{config('bridge.categories')[$appeal->category_id]}} <br>
