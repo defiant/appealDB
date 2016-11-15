@@ -168,25 +168,37 @@
                         <input type="text" name="committee" id="committee" class="input" placeholder="Name of AC Members separated by comma">
                     </p>
 
-                    <label for="facts" class="label">Facts</label>
-                    <p class="control">
-                        <textarea name="facts" id="facts" cols="30" rows="10" class="textarea"></textarea>
-                    </p>
+                    <div class="columns">
+                        <div class="column">
+                            <label for="facts" class="label">Facts</label>
+                            <p class="control">
+                                <textarea name="facts" id="facts" cols="30" rows="10" class="textarea"></textarea>
+                            </p>
 
-                    <label for="ruling" class="label">Ruling</label>
-                    <p class="control">
-                        <textarea name="ruling" id="ruling" cols="30" rows="10" class="textarea" placeholder="The Ruling of the director"></textarea>
-                    </p>
+                            <label for="ruling" class="label">Ruling</label>
+                            <p class="control">
+                                <textarea name="ruling" id="ruling" cols="30" rows="10" class="textarea" placeholder="The Ruling of the director"></textarea>
+                            </p>
 
-                    <label for="appeal_reason" class="label">Appeal Reason</label>
-                    <p class="control">
-                        <textarea name="appeal_reason" id="appeal_reason" cols="30" rows="10" class="textarea" placeholder="Why did this hand appealed?"></textarea>
-                    </p>
+                            <label for="appeal_reason" class="label">Appeal Reason</label>
+                            <p class="control">
+                                <textarea name="appeal_reason" id="appeal_reason" cols="30" rows="10" class="textarea" placeholder="Why did this hand appealed?"></textarea>
+                            </p>
 
-                    <label for="decision" class="label">Decision</label>
-                    <p class="control">
-                        <textarea name="decision" id="decision" cols="30" rows="10" class="textarea" placeholder="Decision of the Appeal Committee"></textarea>
-                    </p>
+                            <label for="decision" class="label">Decision</label>
+                            <p class="control">
+                                <textarea name="decision" id="decision" cols="30" rows="10" class="textarea" placeholder="Decision of the Appeal Committee"></textarea>
+                            </p>
+                        </div>
+                        <div class="column is-4">
+                            <div class="content">
+                                <p>&nbsp;</p>
+                                <p>These four text fields support markdown. This means you can apply some styling. For markdown reference you can check this
+                                    <a href="https://daringfireball.net/projects/markdown/basics">link</a>.</p>
+                                <p>Also you can use native suit symbols: <br>(♠, ♥,  ♦, ♣) <br>If you don't have easy access to these symbols you can also use BBO style suits; (!S, !H, !D, !C) They will be converted to their respective symbols once the record is saved.</p>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="columns">
                         <div class="column">
