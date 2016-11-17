@@ -116,7 +116,7 @@
                 <div class="content">
                     <p>
                         <strong>Appeal Date</strong>: {{$appeal->appeal_time->format('F jS, Y (l)')}} <br>
-                        @if($appeal->casebook) <strong>Casebook Name</strong>: {{$appeal->casebook}}) @endif
+                        @if($appeal->casebook) <strong>Casebook Name</strong>: {{$appeal->casebook}}) <br> @endif
                         <strong>Level</strong>: {{$appeal->event->level}} <br>
                         <strong>NBO</strong>: {{$appeal->event->nbo}} <br>
                         <strong>Category</strong>: {{config('bridge.categories')[$appeal->category_id]}} <br>

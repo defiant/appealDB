@@ -27,12 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
-        /*$this->app->singleton(Parser::class, function ($app) {
-            $parsedown = new Parsedown;
-            return new Parser($parsedown);
-        });*/
-
         $this->app->singleton('markdown', Parsedown::class);
     }
 }

@@ -21,6 +21,9 @@
 
 @section('content')
     <div class="container">
+        @if(count($errors))
+            This form has some errors. Please fix them before submitting
+        @endif
         <div class="column is-10 is-offset-1">
             <form action="/store" method="post" id="appeal_form">
                 <fieldset>
@@ -29,14 +32,14 @@
                         <div class="column">
                             <label for="event_name" class="label">Event Name:</label>
                             <p class="control">
-                                <input type="text" name="event_name" id="event_name" class="input" placeholder="Event Name" required>
+                                <input type="text" name="event_name" id="event_name" class="input" placeholder="Event Name" value="{{old('event_name')}}" required>
                             </p>
                         </div>
 
                         <div class="column">
                             <label for="event_session" class="label">Session</label>
                             <p class="control">
-                                <input type="text" name="event_session" id="event_session" class="input" placeholder="Session or Match" required>
+                                <input type="text" name="event_session" id="event_session" class="input" placeholder="Session or Match" value="{{old('event_session')}}" required>
                             </p>
                         </div>
                     </div>
@@ -45,7 +48,7 @@
                         <div class="column">
                             <label for="nbo" class="label">Bridge Organization</label>
                             <p class="control">
-                                <input type="text" name="nbo" id="nbo" class="input" placeholder="NBO: ACBL, EBL etc..">
+                                <input type="text" name="nbo" id="nbo" class="input" placeholder="NBO: ACBL, EBL etc.." value="{{old('nbo')}}">
                             </p>
                         </div>
 
@@ -172,22 +175,22 @@
                         <div class="column">
                             <label for="facts" class="label">Facts</label>
                             <p class="control">
-                                <textarea name="facts" id="facts" cols="30" rows="10" class="textarea"></textarea>
+                                <textarea name="facts" id="facts" cols="30" rows="10" class="textarea @if($errors->has('facts')) is-danger @endif ">{{old('facts')}}</textarea>
                             </p>
 
                             <label for="ruling" class="label">Ruling</label>
                             <p class="control">
-                                <textarea name="ruling" id="ruling" cols="30" rows="10" class="textarea" placeholder="The Ruling of the director"></textarea>
+                                <textarea name="ruling" id="ruling" cols="30" rows="10" class="textarea" placeholder="The Ruling of the director">{{old('ruling')}}</textarea>
                             </p>
 
                             <label for="appeal_reason" class="label">Appeal Reason</label>
                             <p class="control">
-                                <textarea name="appeal_reason" id="appeal_reason" cols="30" rows="10" class="textarea" placeholder="Why did this hand appealed?"></textarea>
+                                <textarea name="appeal_reason" id="appeal_reason" cols="30" rows="10" class="textarea" placeholder="Why did this hand appealed?">{{old('appeal_reason')}}</textarea>
                             </p>
 
                             <label for="decision" class="label">Decision</label>
                             <p class="control">
-                                <textarea name="decision" id="decision" cols="30" rows="10" class="textarea" placeholder="Decision of the Appeal Committee"></textarea>
+                                <textarea name="decision" id="decision" cols="30" rows="10" class="textarea" placeholder="Decision of the Appeal Committee">{{old('decision')}}</textarea>
                             </p>
                         </div>
                         <div class="column is-4">

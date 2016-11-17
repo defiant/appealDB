@@ -95,6 +95,7 @@ $("#vul").change(function(){
 // show alert box
 $("#bidding-diagram .bidding").on('click', "div", function(e){
     e.preventDefault();
+    $("#submit").prop('disabled', true);
 
     var $inputDiv = $("#explain_bid");
     var $inputField = $("#explain_bid_input");
@@ -112,9 +113,9 @@ $("#save_alert").click(function(){
     var elForm = elExplanation.parents("form");
     var elAlerts = $("#alerts");
 
-/*    if(!explanation.trim()){
+    if(!explanation.trim()){
         return false;
-    }*/
+    }
 
     // Put alerts into an array of hidden input boxes;
 
@@ -127,12 +128,14 @@ $("#save_alert").click(function(){
     // empty box and hide alert form elements
     elExplanation.val('');
     $("#explain_bid").hide();
+    $("#submit").prop('disabled', false);
 });
 
 $("#cancel_alert").click(function(e){
     e.preventDefault();
     $("#explain_bid").hide();
     $("#explain_bid_input").val('');
+    $("#submit").prop('disabled', false);
 });
 
 // write out bidding data when submitting
