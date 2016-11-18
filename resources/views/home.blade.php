@@ -12,7 +12,7 @@
 
         <hr>
         <div class="columns">
-            <div class="column">
+            <div class="column is-8">
                 <table class="table">
                     <thead>
                     <tr>

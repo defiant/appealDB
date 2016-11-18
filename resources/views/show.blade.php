@@ -5,6 +5,7 @@
 @section('meta_description')Appeal records for the event {{$appeal->event->event_name}} ({{$appeal->event->session}}) concerning {{config('bridge.categories')[$appeal->category_id]}} at board {{$appeal->board->board_no}}. The appeal was at {{$appeal->appeal_time->toFormattedDateString()}}. @if($appeal->laws) Related laws: {{$appeal->laws}} @endif @endsection
 
 @section('content')
+
     <div class="container">
         <div class="columns">
             <div class="column">
@@ -85,7 +86,7 @@
                             @if($k % 4 === 0)
                                 <div class="columns is-mobile auction-row auction-row__{{$row++}}">
                                     @endif
-                                    <div class="column is-one-quarter has-text-centered @if($alerts && array_key_exists($bid, $alerts) === true) alerted-bid @endif" data-bid="{{$bid}}">
+                                    <div class="column is-one-quarter has-text-centered @if($alerts && array_key_exists($k - $appeal->board->dealer, $alerts) === true) alerted-bid @endif" data-bid-index="{{$k - $appeal->board->dealer}}">
                                         {{$bid}}
                                     </div>
                                     @if($k % 4 === 3)
@@ -104,8 +105,8 @@
                 @if($alerts)
                     <div class="alerts">
                         <ul>
-                            @foreach($alerts as $alert => $explanation)
-                                <li><strong>{{$alert}}</strong>: {{$explanation}}</li>
+                            @foreach($alerts as $k => $explanation)
+                                <li id="alert-{{$k}}">{{$explanation}}</li>
                             @endforeach
                         </ul>
                     </div>
@@ -116,7 +117,7 @@
                 <div class="content">
                     <p>
                         <strong>Appeal Date</strong>: {{$appeal->appeal_time->format('F jS, Y (l)')}} <br>
-                        @if($appeal->casebook) <strong>Casebook Name</strong>: {{$appeal->casebook}}) <br> @endif
+                        @if($appeal->casebook) <strong>Casebook Name</strong>: {{$appeal->casebook}} <br> @endif
                         <strong>Level</strong>: {{$appeal->event->level}} <br>
                         <strong>NBO</strong>: {{$appeal->event->nbo}} <br>
                         <strong>Category</strong>: {{config('bridge.categories')[$appeal->category_id]}} <br>
@@ -161,17 +162,17 @@
 
         <div class="columns">
             <div class="column has-text-centered">
-                <small>This document was created at <strong>{{$appeal->created_at->format('F j, Y - G:i')}}</strong>
+                <small>This document was created at <strong>{{$appeal->created_at->format('F j, Y (T) - H:i')}}</strong>
                     @if($appeal->created_at->ne($appeal->updated_at))
-                        and last updated at <strong>{{$appeal->updated_at->format('F j, Y - G:i')}}</strong>
+                        and last updated at <strong>{{$appeal->updated_at->format('F j, Y (T) - H:i')}}</strong>
                     @endif
                 </small>
+                <hr>
             </div>
         </div>
 
         <div class="columns">
             <div class="column is-10 is-offset-1">
-                <hr>
                 <h2 class="title">Discussion</h2>
                 <div id="disqus_thread"></div>
                 <script>

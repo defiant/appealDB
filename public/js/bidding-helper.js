@@ -10,10 +10,11 @@ $(".bid_card, .call_card").click(function(e){
     }
 
     bidHistory.push($(this).data("bid-string"));
-    var cardIndex = 1 + $(".bid_card").index($(this));
+
 
     // Bid indexes is used to keep record for undos but only suit bids
     if($(this).hasClass('bid_card')) {
+        var cardIndex = 1 + $(".bid_card").index($(this));
         bidIndexes.push(cardIndex);
     }
 
@@ -53,12 +54,11 @@ $("#undo").click(function(){
     }
 
     var removedBid = bidHistory.pop();
-
     removeAlerted(removedBid);
 
     if(removedBid != 'P' || removedBid != 'X' || removedBid != 'XX') {
         bidIndexes.pop();
-        var revertIndex = bidIndexes.length > 1 ? (bidIndexes[bidIndexes.length  -1 ]) -1 : 0;
+        var revertIndex = bidIndexes.length > 0 ? (bidIndexes[bidIndexes.length  -1 ])-1 : null;
         if(revertIndex){
             $(".bid_card:gt(" + revertIndex  + ")" ).removeClass("disabled");
         }else{
@@ -86,6 +86,8 @@ $("#undo").click(function(){
     if(bidHistory.length == 0){
         $(".undo_button .button").addClass("is-disabled");
     }
+
+    $("#submit").prop('disabled', false);
 });
 
 $("#vul").change(function(){
@@ -104,7 +106,7 @@ $("#bidding-diagram .bidding").on('click', "div", function(e){
     $inputDiv.show().focus();
     $inputDiv.find("label span").text("(" + bid + ")");
     $inputField.val(''); // clear input field
-    $inputField.data("bid", bid );
+    $inputField.data("bid", bid ).data('index', $(this).data('index'));
 });
 
 $("#save_alert").click(function(){
@@ -119,7 +121,7 @@ $("#save_alert").click(function(){
 
     // Put alerts into an array of hidden input boxes;
 
-    elForm.append("<input name='alert[" + elExplanation.data("bid") + "]' type='hidden' value='" + htmlEntities(explanation) + "'>");
+    elForm.append("<input name='alert[" + elExplanation.data("index") + "]' type='hidden' value='" + elExplanation.data("bid") + ": " + htmlEntities(explanation) + "'>");
     var insert = $("<div id='alert-" + elExplanation.data("bid") + "'><strong>"+elExplanation.data("bid") + ": </strong> <span></span></div>");
 
     insert.find("span").text(explanation);

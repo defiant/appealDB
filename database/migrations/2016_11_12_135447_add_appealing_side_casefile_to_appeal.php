@@ -15,7 +15,7 @@ class AddAppealingSideCasefileToAppeal extends Migration
     {
         Schema::table('appeals', function($table){
             $table->string('casebook')->after('user_id');
-            $table->enum('side_appealing', ['ns', 'ew'])->after('committee')->nullable();
+            $table->enum('side_appealing', ['ns', 'ew', 'both'])->after('committee')->nullable();
         });
     }
 

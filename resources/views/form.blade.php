@@ -155,10 +155,10 @@
                             <input type="radio" value="ew" name="side_appealing">
                             East/West
                         </label>
-                        {{--<label class="radio">
-                            <input type="radio" value="" name="side_appealing">
-                            NA
-                        </label>--}}
+                        <label class="radio">
+                            <input type="radio" value="both" name="side_appealing">
+                            Both
+                        </label>
                     </p>
 
                     <label for="director" class="label">Director</label>
@@ -185,7 +185,7 @@
 
                             <label for="appeal_reason" class="label">Appeal Reason</label>
                             <p class="control">
-                                <textarea name="appeal_reason" id="appeal_reason" cols="30" rows="10" class="textarea" placeholder="Why did this hand appealed?">{{old('appeal_reason')}}</textarea>
+                                <textarea name="appeal_reason" id="appeal_reason" cols="30" rows="10" class="textarea" placeholder="Why did this hand appealed? Statements from both sides.">{{old('appeal_reason')}}</textarea>
                             </p>
 
                             <label for="decision" class="label">Decision</label>
@@ -360,52 +360,52 @@
 
                                 <div class="bids">
                                     <div class="bid_row">
-                                        <div data-bid-string="1C" class="bid_card clubs">1♣</div>
-                                        <div data-bid-string="1D" class="bid_card diamonds">1♦</div>
-                                        <div data-bid-string="1H" class="bid_card hearts">1♥</div>
-                                        <div data-bid-string="1S" class="bid_card spades">1♠</div>
+                                        <div data-bid-string="1♣" class="bid_card clubs">1♣</div>
+                                        <div data-bid-string="1♦" class="bid_card diamonds">1♦</div>
+                                        <div data-bid-string="1♥" class="bid_card hearts">1♥</div>
+                                        <div data-bid-string="1♠" class="bid_card spades">1♠</div>
                                         <div data-bid-string="1N" class="bid_card notrump">1NT</div>
                                     </div>
                                     <div class="bid_row">
-                                        <div data-bid-string="2C" class="bid_card clubs">2♣</div>
-                                        <div data-bid-string="2D" class="bid_card diamonds">2♦</div>
-                                        <div data-bid-string="2H" class="bid_card hearts">2♥</div>
-                                        <div data-bid-string="2S" class="bid_card spades">2♠</div>
+                                        <div data-bid-string="2♣" class="bid_card clubs">2♣</div>
+                                        <div data-bid-string="2♦" class="bid_card diamonds">2♦</div>
+                                        <div data-bid-string="2♥" class="bid_card hearts">2♥</div>
+                                        <div data-bid-string="2♠" class="bid_card spades">2♠</div>
                                         <div data-bid-string="2N" class="bid_card notrump">2NT</div>
                                     </div>
                                     <div class="bid_row">
-                                        <div data-bid-string="3C" class="bid_card clubs">3♣</div>
-                                        <div data-bid-string="3D" class="bid_card diamonds">3♦</div>
-                                        <div data-bid-string="3H" class="bid_card hearts">3♥</div>
-                                        <div data-bid-string="3S" class="bid_card spades">3♠</div>
+                                        <div data-bid-string="3♣" class="bid_card clubs">3♣</div>
+                                        <div data-bid-string="3♦" class="bid_card diamonds">3♦</div>
+                                        <div data-bid-string="3♥" class="bid_card hearts">3♥</div>
+                                        <div data-bid-string="3♠" class="bid_card spades">3♠</div>
                                         <div data-bid-string="3N" class="bid_card notrump">3NT</div>
                                     </div>
                                     <div class="bid_row">
-                                        <div data-bid-string="4C" class="bid_card clubs">4♣</div>
-                                        <div data-bid-string="4D" class="bid_card diamonds">4♦</div>
-                                        <div data-bid-string="4H" class="bid_card hearts">4♥</div>
-                                        <div data-bid-string="4S" class="bid_card spades">4♠</div>
+                                        <div data-bid-string="4♣" class="bid_card clubs">4♣</div>
+                                        <div data-bid-string="4♦" class="bid_card diamonds">4♦</div>
+                                        <div data-bid-string="4♥" class="bid_card hearts">4♥</div>
+                                        <div data-bid-string="4♠" class="bid_card spades">4♠</div>
                                         <div data-bid-string="4N" class="bid_card notrump">4NT</div>
                                     </div>
                                     <div class="bid_row">
-                                        <div data-bid-string="5C" class="bid_card clubs">5♣</div>
-                                        <div data-bid-string="5D" class="bid_card diamonds">5♦</div>
-                                        <div data-bid-string="5H" class="bid_card hearts">5♥</div>
-                                        <div data-bid-string="5S" class="bid_card spades">5♠</div>
+                                        <div data-bid-string="5♣" class="bid_card clubs">5♣</div>
+                                        <div data-bid-string="5♦" class="bid_card diamonds">5♦</div>
+                                        <div data-bid-string="5♥" class="bid_card hearts">5♥</div>
+                                        <div data-bid-string="5♠" class="bid_card spades">5♠</div>
                                         <div data-bid-string="5N" class="bid_card notrump">5NT</div>
                                     </div>
                                     <div class="bid_row">
-                                        <div data-bid-string="6C" class="bid_card clubs">6♣</div>
-                                        <div data-bid-string="6D" class="bid_card diamonds">6♦</div>
-                                        <div data-bid-string="6H" class="bid_card hearts">6♥</div>
-                                        <div data-bid-string="6S" class="bid_card spades">6♠</div>
+                                        <div data-bid-string="6♣" class="bid_card clubs">6♣</div>
+                                        <div data-bid-string="6♦" class="bid_card diamonds">6♦</div>
+                                        <div data-bid-string="6♥" class="bid_card hearts">6♥</div>
+                                        <div data-bid-string="6♠" class="bid_card spades">6♠</div>
                                         <div data-bid-string="6N" class="bid_card notrump">6NT</div>
                                     </div>
                                     <div class="bid_row">
-                                        <div data-bid-string="7C" class="bid_card clubs">7♣</div>
-                                        <div data-bid-string="7D" class="bid_card diamonds">7♦</div>
-                                        <div data-bid-string="7H" class="bid_card hearts">7♥</div>
-                                        <div data-bid-string="7S" class="bid_card spades">7♠</div>
+                                        <div data-bid-string="7♣" class="bid_card clubs">7♣</div>
+                                        <div data-bid-string="7♦" class="bid_card diamonds">7♦</div>
+                                        <div data-bid-string="7♥" class="bid_card hearts">7♥</div>
+                                        <div data-bid-string="7♠" class="bid_card spades">7♠</div>
                                         <div data-bid-string="7N" class="bid_card notrump">7NT</div>
                                     </div>
                                 </div>
@@ -465,47 +465,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{--<div class="column is-4">
-                            <div class="content">
-                                <p>
-                                    All bids are separated by a white space.
-                                </p>
-                                <ul>
-                                    <li>Pass => P</li>
-                                    <li>Double => X</li>
-                                    <li>Redouble => XX</li>
-                                    <li>No Trump => n</li>
-                                    <li>Clubs => c</li>
-                                    <li>Diamonds => d</li>
-                                    <li>Hearts => h</li>
-                                    <li>Spades => s</li>
-                                </ul>
-
-                                <p>A valid bid for a suit is a two character string. For example 1&hearts; is represented as 1h. And one no trump as 1n</p>
-                                <p>If you need to alert a bid you can put a ! (exclamation) character. Ie: 2c!</p>
-                            </div>
-                        </div>--}}
                     </div>
-
-                    {{--<hr>
-                    <div class="columns">
-                        <div class="column is-8">
-                            <label for="alerts" class="label">Alerts</label>
-                            <p class="control">
-                                <textarea name="alerts" id="alerts" cols="30" rows="10" class="textarea"></textarea>
-                            </p>
-                        </div>
-                        <div class="column is-4">
-                            <div class="content">
-                                <p>
-                                    If you made an alert at the previous bidding section you can use this section to explain the alerted bid.
-                                    All you have to do is to start the explanation with a ! character. If you need to add more than one explanation just start each explanation with an !
-                                    <br>
-                                    <strong>Just don't use ! except starting an explanation.</strong>
-                                </p>
-                            </div>
-                        </div>
-                    </div>--}}
 
                     <hr>
                     <div class="columns">

@@ -1,6 +1,8 @@
 <?php namespace App\Repositories;
 
 use App\Appeal;
+use App\Board;
+use App\Event;
 use App\Helpers\HandHelpers;
 
 class DbAppealRepository implements AppealRepositoryInterface

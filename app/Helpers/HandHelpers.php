@@ -1,4 +1,4 @@
-<?php namespace App\Helpers;
+<?php namespace app\Helpers;
 
 /**
  * Class HandHelpers
@@ -62,8 +62,8 @@ class HandHelpers
         if(is_array($data)){
             $ret = [];
             foreach ($data as $k => $v) {
-                $key = str_replace(config('bridge.suits'), config('bridge.symbols'), $k);
-                $ret[$key] = $v;
+                $v = str_replace(config('bridge.suits'), config('bridge.symbols'), $v);
+                $ret[$k] = $v;
             }
             return $ret;
         }else{
