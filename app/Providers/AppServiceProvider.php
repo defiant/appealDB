@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::directive('markdown', function($expression){
-            return "<?php echo app('markdown')->text(e({$expression}));?>";
+            return "<?php echo app('markdown')->setMarkupEscaped(true)->text({$expression});?>";
         });
     }
 
