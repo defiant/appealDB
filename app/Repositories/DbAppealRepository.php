@@ -35,7 +35,7 @@ class DbAppealRepository implements AppealRepositoryInterface
         $board->screen = (bool) $request->get('screen');
         $board->hand = $helper->makeHand($request->get('deal'));
         $board->bidding = $helper->cleanEntry($request->get('bidding'));
-        $board->alerts = $request->get('alert', null) ? json_encode($helper->cleanEntry($request->get('alert'))) : null;
+        $board->alerts = $request->get('alert', null) ? json_encode($request->get('alert')) : null;
         $board->lead = $request->get('lead', null);
         $board->table_result = $request->get('table_result', null);
 
