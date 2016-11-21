@@ -135,7 +135,7 @@
                     <p><strong>Related Laws</strong>: {{$appeal->laws}}</p>
 
                     <p>
-                        <strong>Table Result</strong>: {{$appeal->board->table_result}}<br>
+                        @if($appeal->board->table_result)<strong>Table Result</strong>: @result($appeal->board->table_result). <em>({{$appeal->board->table_result}})</em><br>@endif
                         <strong>Lead</strong>:{{$appeal->board->lead}}
                     </p>
                 </div>

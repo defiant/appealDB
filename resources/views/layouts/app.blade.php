@@ -32,7 +32,7 @@
         </div>
 
         <div class="nav-center">
-            <a class="nav-item" href="#">
+            <a class="nav-item" href="https://github.com/defiant/appealDB">
                 <span class="icon">
                     <i class="fa fa-github"></i>
                 </span>
@@ -148,7 +148,7 @@
                     is licensed <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
                 </p>
                 <p>
-                    <a class="icon" href="https://github.com/">
+                    <a class="icon" href="https://github.com/defiant/appealDB">
                         <i class="fa fa-github"></i>
                     </a>
                 </p>

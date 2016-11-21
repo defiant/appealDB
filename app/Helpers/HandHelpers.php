@@ -270,6 +270,8 @@ class HandHelpers
      */
     public function resultToHuman($contract)
     {
+        if(!$contract) return '';
+
         $contract = strtoupper($contract);
 
         if($contract == 'P'){

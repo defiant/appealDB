@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Parsedown;
+use App\Helpers\HandHelpers;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,6 +19,10 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('markdown', function($expression){
             return "<?php echo app('markdown')->setMarkupEscaped(true)->text({$expression});?>";
         });
+
+        Blade::directive('result', function ($expression){
+           return "<?php echo app('helper')->resultToHuman({$expression}) ?>";
+        });
     }
 
     /**
@@ -27,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('helper', HandHelpers::class);
         $this->app->singleton('markdown', Parsedown::class);
     }
 }
