@@ -36,6 +36,8 @@ class CreateAppealsTable extends Migration
             $table->dateTime('appeal_time');
             $table->boolean('status')->default(false);
 
+            $table->unsignedInteger('views')->default(0);
+
             $table->timestamps();
         });
     }
