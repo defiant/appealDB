@@ -24,7 +24,7 @@
 </head>
 <body>
 
-    <nav class="nav is-danger">
+    <nav class="nav has-shadow">
         <div class="nav-left">
             <a class="nav-item is-brand" href="/">
                 AppealDB
@@ -56,27 +56,12 @@
             </a>
 
             <a class="nav-item" href="/create">
-                Create New Record
+                Create New
             </a>
 
             <a class="nav-item" href="/documentation">
-                Documentation
+                Docs
             </a>
-
-            <span class="nav-item">
-                <a class="button" >
-                    <span class="icon">
-                        <i class="fa fa-twitter"></i>
-                    </span>
-                    <span>Tweet</span>
-                </a>
-                {{--<a class="button is-primary" href="#">
-                    <span class="icon">
-                        <i class="fa fa-download"></i>
-                    </span>
-                    <span>Download</span>
-                </a>--}}
-            </span>
         </div>
     </nav>
 

@@ -4,7 +4,8 @@
 @section('meta_description') An online database for Bridge Appeals where you can view and discuss appeal decision from various tournaments.@endsection
 
 @section('content')
-    <div class="container">
+    <section class="section">
+        <div class="container">
         <h1 class="title is-1">AppealDB</h1>
         <p class="subtitle">
             A database for Bridge Appeals
@@ -59,4 +60,5 @@
             </div>
         </div>
     </div>
+    </section>
 @endsection

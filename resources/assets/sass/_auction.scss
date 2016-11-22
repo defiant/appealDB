@@ -1,7 +1,7 @@
 
 
 .bidding_box{
-  width: 300px;
+  min-width: 200px;
   cursor: pointer;
 
   .bid_row, .calls{
@@ -33,10 +33,12 @@
 
     .double{
       background-color: $double;
+      overflow: hidden;
     }
 
     .redouble{
       background-color: $redouble;
+      overflow: hidden;
     }
 
     .disabled{
@@ -75,7 +77,8 @@
 }
 
 .bidding-diagram{
-  width: 160px;
+  min-width: 130px;
+  max-width: 160px;
   font-size: 16px;
   line-height: 1.5;
   margin: auto;
