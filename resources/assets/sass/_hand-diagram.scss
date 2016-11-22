@@ -91,18 +91,17 @@
 .hand-diagram{
   position: relative;
   margin: auto;
-  max-width: 375px;
+  max-width: 320px;
 
   .hand-row{
     display: block;
-    width: 375px;
 
     .hand{
-
       ul{
         width: 125px;
         overflow: hidden;
         margin: auto;
+        padding-left: 30px;
       }
     }
 
