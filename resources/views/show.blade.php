@@ -76,10 +76,10 @@
                             <h2 class="title is-4">Auction</h2>
 
                             <div class="columns is-mobile auction-header {{$appeal->board->vul}}">
+                                <div class="column w has-text-centered">West</div>
                                 <div class="column n has-text-centered">North</div>
                                 <div class="column w has-text-centered">East</div>
                                 <div class="column s has-text-centered">South</div>
-                                <div class="column w has-text-centered">West</div>
                             </div>
 
                             <div id="auction">

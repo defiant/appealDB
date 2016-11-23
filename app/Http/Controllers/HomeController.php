@@ -32,7 +32,7 @@ class HomeController extends Controller
         $helper = new HandHelpers();
         $data['appeal'] = $this->appeal->find($id);
         $data['hands'] = $helper->handToArray($data['appeal']->board->hand);
-        $data['auction'] = $data['appeal']->board->bidding ? array_merge(array_fill(0, $data['appeal']->board->dealer , ''), explode(' ' ,$data['appeal']->board->bidding)) : [];
+        $data['auction'] = $helper->getAuction($data['appeal']->board->bidding, $data['appeal']->board->dealer);
         $data['alerts'] = json_decode($data['appeal']->board->alerts, true);
         $data['row'] = 0;
 

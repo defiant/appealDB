@@ -5,6 +5,10 @@
  * This class contains a few of the helpers method for interacting with hands and contracts
  * @package app\Helpers
  */
+/**
+ * Class HandHelpers
+ * @package app\Helpers
+ */
 class HandHelpers
 {
 
@@ -107,6 +111,20 @@ class HandHelpers
         }
 
         return $ret;
+    }
+
+
+    /**
+     * @param string $auction
+     * @param int $dealer
+     * @return array
+     */
+    public function  getAuction(string $auction, int $dealer)
+    {
+        if(!$auction) return [];
+        // offset assuming west is on left
+        $offset = $dealer > 2 ? 0 : $dealer+1;
+        return array_merge(array_fill(0, $offset , ''), explode(' ', $auction));
     }
 
     /**
