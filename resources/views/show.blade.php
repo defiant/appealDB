@@ -87,7 +87,8 @@
                                     @if($k % 4 === 0)
                                         <div class="columns is-mobile auction-row auction-row__{{$row++}}">
                                             @endif
-                                            <div class="column is-one-quarter has-text-centered @if($alerts && array_key_exists($k - $appeal->board->dealer, $alerts) === true) alerted-bid @endif" data-bid-index="{{$k - $appeal->board->dealer}}">
+                                            {{--Following conditional for class changes depending on whos the first on the bidding diagram--}}
+                                            <div class="column is-one-quarter has-text-centered @if($alerts && array_key_exists($k - ($appeal->board->dealer == 3 ? 0 : $appeal->board->dealer+1), $alerts) === true) alerted-bid @endif" data-bid-index="{{$k - $appeal->board->dealer}}">
                                                 {{$bid}}
                                             </div>
                                             @if($k % 4 === 3)
