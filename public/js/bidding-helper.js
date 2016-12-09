@@ -2,27 +2,70 @@
 var bidHistory = [];
 var bidIndexes = [];
 
-$(".bid_card, .call_card").click(function(e){
-    e.preventDefault();
+$(function () {
+    $(".bid_card, .call_card").click(function(e){
+        e.preventDefault();
 
-    if($(this).hasClass("disabled")){
+        if($(this).hasClass("disabled")){
+            return false;
+        }
+
+        bidHistory.push($(this).data("bid-string"));
+
+
+        // Bid indexes is used to keep record for undos but only suit bids
+        if($(this).hasClass('bid_card')) {
+            var cardIndex = 1 + $(".bid_card").index($(this));
+            bidIndexes.push(cardIndex);
+        }
+
+        // if we have 3 passes auction ended, disable all bidding cards
+        if(bidHistory.slice(-3).equals(['P', 'P', 'P']) && bidHistory.length > 3){
+            $(".bid_card, .call_card").addClass("disabled");
+        }else{
+            $( ".bid_card:lt(" + cardIndex  + ")" ).addClass("disabled");
+
+            if (canDouble()) {
+                $(".double").removeClass("disabled");
+            }else{
+                $(".double").addClass("disabled");
+            }
+
+            if (canRedouble()) {
+                $(".redouble").removeClass("disabled");
+            }else{
+                $(".redouble").addClass("disabled");
+            }
+        }
+
+        if(bidHistory.length > 0){
+            $(".undo_button .button").removeClass("is-disabled");
+        }
+
+        updateBiddingTable();
+        updateBiddingData();
+
         return false;
-    }
+    });
 
-    bidHistory.push($(this).data("bid-string"));
+    $("#undo").click(function(){
+        if(!bidHistory.length){
+            // "Nothing to undo"
+            return;
+        }
 
+        var removedBid = bidHistory.pop();
+        removeAlerted(removedBid);
 
-    // Bid indexes is used to keep record for undos but only suit bids
-    if($(this).hasClass('bid_card')) {
-        var cardIndex = 1 + $(".bid_card").index($(this));
-        bidIndexes.push(cardIndex);
-    }
-
-    // if we have 3 passes auction ended, disable all bidding cards
-    if(bidHistory.slice(-3).equals(['P', 'P', 'P']) && bidHistory.length > 3){
-        $(".bid_card, .call_card").addClass("disabled");
-    }else{
-        $( ".bid_card:lt(" + cardIndex  + ")" ).addClass("disabled");
+        if(removedBid != 'P' || removedBid != 'X' || removedBid != 'XX') {
+            bidIndexes.pop();
+            var revertIndex = bidIndexes.length > 0 ? (bidIndexes[bidIndexes.length  -1 ])-1 : null;
+            if(revertIndex){
+                $(".bid_card:gt(" + revertIndex  + ")" ).removeClass("disabled");
+            }else{
+                $(".bid_card").removeClass("disabled");
+            }
+        }
 
         if (canDouble()) {
             $(".double").removeClass("disabled");
@@ -35,159 +78,160 @@ $(".bid_card, .call_card").click(function(e){
         }else{
             $(".redouble").addClass("disabled");
         }
-    }
 
-    if(bidHistory.length > 0){
-        $(".undo_button .button").removeClass("is-disabled");
-    }
+        $(".pass").removeClass("disabled");
 
-    updateBiddingTable();
-    updateBiddingData();
+        updateBiddingTable();
+        updateBiddingData();
 
-    return false;
-});
-
-$("#undo").click(function(){
-    if(!bidHistory.length){
-         // "Nothing to undo"
-        return;
-    }
-
-    var removedBid = bidHistory.pop();
-    removeAlerted(removedBid);
-
-    if(removedBid != 'P' || removedBid != 'X' || removedBid != 'XX') {
-        bidIndexes.pop();
-        var revertIndex = bidIndexes.length > 0 ? (bidIndexes[bidIndexes.length  -1 ])-1 : null;
-        if(revertIndex){
-            $(".bid_card:gt(" + revertIndex  + ")" ).removeClass("disabled");
-        }else{
-            $(".bid_card").removeClass("disabled");
+        if(bidHistory.length == 0){
+            $(".undo_button .button").addClass("is-disabled");
         }
-    }
 
-    if (canDouble()) {
-        $(".double").removeClass("disabled");
-    }else{
-        $(".double").addClass("disabled");
-    }
+        $("#submit").prop('disabled', false);
+    });
 
-    if (canRedouble()) {
-        $(".redouble").removeClass("disabled");
-    }else{
-        $(".redouble").addClass("disabled");
-    }
-
-    $(".pass").removeClass("disabled");
-
-    updateBiddingTable();
-    updateBiddingData();
-
-    if(bidHistory.length == 0){
-        $(".undo_button .button").addClass("is-disabled");
-    }
-
-    $("#submit").prop('disabled', false);
-});
-
-$("#vul").change(function(){
-    $(".diagram-header").removeClass("none n s all").addClass($(this).val());
-});
+    $("#vul").change(function(){
+        $(".diagram-header").removeClass("none n s all").addClass($(this).val());
+    });
 
 // show alert box
-$("#bidding-diagram .bidding").on('click', "div", function(e){
-    e.preventDefault();
-    $("#submit").prop('disabled', true);
+    $("#bidding-diagram .bidding").on('click', "div", function(e){
+        e.preventDefault();
+        $("#submit").prop('disabled', true);
 
-    var $inputDiv = $("#explain_bid");
-    var $inputField = $("#explain_bid_input");
-    var bid = $(this).text();
+        var $inputDiv = $("#explain_bid");
+        var $inputField = $("#explain_bid_input");
+        var bid = $(this).text();
 
-    $inputDiv.show().focus();
-    $inputDiv.find("label span").text("(" + bid + ")");
-    $inputField.val(''); // clear input field
-    $inputField.data("bid", bid ).data('index', $(this).data('index'));
-});
+        $inputDiv.show().focus();
+        $inputDiv.find("label span").text("(" + bid + ")");
+        $inputField.val(''); // clear input field
+        $inputField.data("bid", bid ).data('index', $(this).data('index'));
+    });
 
-$("#save_alert").click(function(){
-    var elExplanation =  $("#explain_bid_input");
-    var explanation = elExplanation.val();
-    var elForm = elExplanation.parents("form");
-    var elAlerts = $("#alerts");
+    $("#save_alert").click(function(){
+        var elExplanation =  $("#explain_bid_input");
+        var explanation = elExplanation.val();
+        var elForm = elExplanation.parents("form");
+        var elAlerts = $("#alerts");
 
-    if(!explanation.trim()){
-        return false;
-    }
+        if(!explanation.trim()){
+            return false;
+        }
 
-    // Put alerts into an array of hidden input boxes;
+        // Put alerts into an array of hidden input boxes;
 
-    elForm.append("<input name='alert[" + elExplanation.data("index") + "]' type='hidden' value='" + elExplanation.data("bid") + ": " + htmlEntities(explanation) + "'>");
-    var insert = $("<div id='alert-" + elExplanation.data("bid") + "'><strong>"+elExplanation.data("bid") + ": </strong> <span></span></div>");
+        elForm.append("<input name='alert[" + elExplanation.data("index") + "]' type='hidden' value='" + elExplanation.data("bid") + ": " + htmlEntities(explanation) + "'>");
+        var insert = $("<div id='alert-" + elExplanation.data("bid") + "'><strong>"+elExplanation.data("bid") + ": </strong> <span></span></div>");
 
-    insert.find("span").text(explanation);
-    insert.appendTo(elAlerts);
+        insert.find("span").text(explanation);
+        insert.appendTo(elAlerts);
 
-    // empty box and hide alert form elements
-    elExplanation.val('');
-    $("#explain_bid").hide();
-    $("#submit").prop('disabled', false);
-});
+        // empty box and hide alert form elements
+        elExplanation.val('');
+        $("#explain_bid").hide();
+        $("#submit").prop('disabled', false);
+    });
 
-$("#cancel_alert").click(function(e){
-    e.preventDefault();
-    $("#explain_bid").hide();
-    $("#explain_bid_input").val('');
-    $("#submit").prop('disabled', false);
-});
+    $("#cancel_alert").click(function(e){
+        e.preventDefault();
+        $("#explain_bid").hide();
+        $("#explain_bid_input").val('');
+        $("#submit").prop('disabled', false);
+    });
 
 // write out bidding data when submitting
-$("#appeal_form").submit(function(){
-    $("#bidding-data").val(bidHistory.join(' '));
-});
+    $("#appeal_form").submit(function(){
+        $("#bidding-data").val(bidHistory.join(' '));
+    });
 
 // Allow only valid chars
-$(".hand-input input").keyup(function (e) {
-    var validChars = ['a', 'k', 'q', 'j', 't', 'x'];
-    var char = $(this).val().substr(-1);
+    $(".hand-input input").keyup(function (e) {
+        var validChars = ['a', 'k', 'q', 'j', 't', 'x'];
+        var char = $(this).val().substr(-1);
 
-    if(validChars.indexOf(char.toLowerCase()) == -1){
-        if(parseInt(char) > 1 && parseInt(char) < 10){
-            return;
+        if(validChars.indexOf(char.toLowerCase()) == -1){
+            if(parseInt(char) > 1 && parseInt(char) < 10){
+                return;
+            }
+            $(this).val($(this).val().slice(0, -1));
         }
-        $(this).val($(this).val().slice(0, -1));
-    }
-});
+    });
 
 // Remove duplicates check hand sizes
-$(".hand-input input").blur(function(){
-    function dup(x, n, s){
-        if(x == 'x' || x == 'X') {
-            return true;
+    $(".hand-input input").blur(function(){
+        function dup(x, n, s){
+            if(x == 'x' || x == 'X') {
+                return true;
+            }
+
+            return s.indexOf(x) == n;
         }
 
-        return s.indexOf(x) == n;
-    }
-
-    var newVal = $(this).val().split("").filter(dup).join("");
-    $(this).val(newVal);
+        var newVal = $(this).val().split("").filter(dup).join("");
+        $(this).val(newVal);
 
 
-    var parent = $(this).parent();
+        var parent = $(this).parent();
 
-    if(getLen(parent.find("input")) > 13){
-        parent.addClass("is-error");
-        $("#too_many_cards").show();
-        $("#submit").prop( "disabled", true).addClass('is-disabled');
-    }else{
-        parent.removeClass("is-error");
-        $("#too_many_cards").hide();
-        $("#submit").prop( "disabled", false).removeClass('is-disabled');
-    }
+        if(getLen(parent.find("input")) > 13){
+            parent.addClass("is-error");
+            $("#too_many_cards").show();
+            $("#submit").prop( "disabled", true).addClass('is-disabled');
+        }else{
+            parent.removeClass("is-error");
+            $("#too_many_cards").hide();
+            $("#submit").prop( "disabled", false).removeClass('is-disabled');
+        }
+    });
+
+    $("button.delete").click(function(){
+        $(this).parent().fadeOut(100)
+    });
+
+    $("input[name='result_stands']").change(function(){
+        $("#td_ruling").slideToggle(250);
+    });
+
+    $("input[name='ruling_upheld']").change(function(){
+        $("#ac_ruling").slideToggle(250);
+    });
+
+// convert 10 to T in case of paste
+    $(".hand-input input").blur(function () {
+        var str = $(this).val().replace(/10/i, 'T');
+        $(this).val(str);
+    });
+
+// update board details depending on board number
+    $("#board_no").change(function () {
+        var boardNo = parseInt($(this).val());
+        if(boardNo){
+            $("#dealer").val(getDealerForBoard(boardNo));
+            $("#vul").val(getVul(boardNo));
+        }
+    });
 });
 
-$("button.delete").click(function(){
-    $(this).parent().fadeOut(100)
-});
+function getVul(board){
+    var vul = [
+        'none','ns','ew','all',
+        'ns','ew','all','none',
+        'ew','all','none','ns',
+        'all','none','ns','ew',
+    ];
+    var x = board % 16;
+
+    x = x ? x-1 : 0;
+
+    return vul[x];
+}
+
+function getDealerForBoard(board){
+    var x = board % 4;
+    return x ? x-1 : 0;
+}
 
 function getLen(o){
     var i = 0;
