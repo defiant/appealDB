@@ -7,7 +7,7 @@
 @push('js')
     <script src="/js/jquery.min.js"></script>
     <script src="/js/flatpickr.min.js"></script>
-    <script src="/js/bidding-helper.js"></script>
+    <script src="/js/html2canvas.js"></script>
     <script>
         document.getElementById("appeal_date").flatpickr({
             maxDate: "today",
@@ -163,64 +163,98 @@
 
                     <label for="director" class="label">Director</label>
                     <p class="control">
-                        <input type="text" name="director" id="director" class="input" placeholder="Director's name">
+                        <input type="text" name="director" id="director" class="input" placeholder="Name of Director in Charge">
                     </p>
 
                     <label for="committee" class="label">Appeal Committe</label>
                     <p class="control">
                         <input type="text" name="committee" id="committee" class="input" placeholder="Name of AC Members separated by comma">
                     </p>
+                    <hr>
 
                     <div class="columns">
                         <div class="column">
                             <label for="facts" class="label">Facts</label>
                             <p class="control">
-                                <textarea name="facts" id="facts" cols="30" rows="10" class="textarea @if($errors->has('facts')) is-danger @endif ">{{old('facts')}}</textarea>
+                                <textarea name="facts" id="facts" cols="30" rows="10" class="textarea @if($errors->has('facts')) is-danger @endif " placeholder="Facts determined at the table and away from the table">{{old('facts')}}</textarea>
                             </p>
+                            <hr>
 
                             <label for="ruling" class="label">Ruling</label>
                             <p class="control">
                                 <textarea name="ruling" id="ruling" cols="30" rows="10" class="textarea" placeholder="The Ruling of the director">{{old('ruling')}}</textarea>
                             </p>
 
+                            <div class="columns">
+                                <div class="column">
+                                    <label class="label">Table Result Stands?</label>
+                                    <p class="control">
+                                        <label class="radio">
+                                            <input type="radio" value="1" name="result_stands" checked>
+                                            Yes
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" value="0" name="result_stands">
+                                            No
+                                        </label>
+                                    </p>
+                                </div>
+
+                                <div class="column is-9">
+                                    Did the Director decided that the table result stands? If yes check this box.
+                                </div>
+                            </div>
+                            <p class="control" id="td_ruling" style="display: none">
+                                <input type="text" name="td_ruling" class="input" placeholder="Director's ruling if different from table result">
+                            </p>
+
+                            <hr>
+
                             <label for="appeal_reason" class="label">Appeal Reason</label>
                             <p class="control">
                                 <textarea name="appeal_reason" id="appeal_reason" cols="30" rows="10" class="textarea" placeholder="Why did this hand appealed? Statements from both sides.">{{old('appeal_reason')}}</textarea>
                             </p>
+                            <hr>
 
                             <label for="decision" class="label">Decision</label>
                             <p class="control">
                                 <textarea name="decision" id="decision" cols="30" rows="10" class="textarea" placeholder="Decision of the Appeal Committee">{{old('decision')}}</textarea>
                             </p>
+                            <div class="columns">
+                                <div class="column">
+                                    <label class="label">Ruling Upheld?</label>
+                                    <p class="control">
+                                        <label class="radio">
+                                            <input type="radio" value="1" name="ruling_upheld" checked>
+                                            Yes
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" value="0" name="ruling_upheld">
+                                            No
+                                        </label>
+                                    </p>
+                                </div>
+                                <div class="column is-9">
+                                    Did the Appeal Committee upheld the director's ruling? If yes check this box. It will help us better categorize appeals.
+                                </div>
+                            </div>
+                            <p class="control" id="ac_ruling" style="display: none">
+                                <input type="text" name="ac_ruling"  class="input" placeholder="AC ruling, if different from director's ruling">
+                            </p>
+                            <hr>
                         </div>
+
                         <div class="column is-4">
                             <div class="content">
                                 <p>&nbsp;</p>
                                 <p>These four text fields support markdown. This means you can apply some styling. For markdown reference you can check this
-                                    <a href="https://daringfireball.net/projects/markdown/basics">link</a>.</p>
+                                    <a href="https://daringfireball.net/projects/markdown/basics" target="_blank">link</a>.</p>
                                 <p>Also you can use native suit symbols: <br>(♠, ♥,  ♦, ♣) <br>If you don't have easy access to these symbols you can also use BBO style suits; (!S, !H, !D, !C) They will be converted to their respective symbols once the record is saved.</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="columns">
-                        <div class="column">
-                            <label class="label">Ruling Upheld?</label>
-                            <p class="control">
-                                <label class="radio">
-                                    <input type="radio" value="1" name="ruling_upheld">
-                                    Yes
-                                </label>
-                                <label class="radio">
-                                    <input type="radio" value="0" name="ruling_upheld">
-                                    No
-                                </label>
-                            </p>
-                        </div>
-                        <div class="column is-9">
-                            Did the Appeal Committee upheld the director's ruling? If yes check this box. It will help us better categorize appeals.
-                        </div>
-                    </div>
+
 
                     <label for="laws" class="label">Relevant Laws</label>
                     <p class="control">
@@ -279,7 +313,7 @@
                     <h1 class="title is-3">Hands</h1>
                     <div class="columns">
                         <div class="column is-8-desktop">
-                            <div id="hand_diagram" class="hand_digram">
+                            <div id="hand_diagram" class="hand_diagram">
                                 <div class="columns">
                                     <div class="column is-one-third"></div>
                                     <div class="column is-one-third hand-input" id="hand-north">
@@ -337,7 +371,7 @@
                                     <li>K for King</li>
                                     <li>Q for Queen</li>
                                     <li>J for Jack</li>
-                                    <li>T fot Ten</li>
+                                    <li>T for Ten</li>
                                 </ul>
                                 <p>
                                     Numbers [2..9] <br><br>
@@ -470,6 +504,19 @@
                     <hr>
                     <div class="columns">
                         <div class="column is-3">
+                            <label for="declarer" class="label">Declarer</label>
+                            <p class="control">
+                                <span class="select is-fullwidth">
+                                    <select name="declarer" id="declarer">
+                                        <option value="0">North</option>
+                                        <option value="1">East</option>
+                                        <option value="2">South</option>
+                                        <option value="3">West</option>
+                                        <option value="">N/A</option>
+                                    </select>
+                                </span>
+                            </p>
+
                             <label for="table_result" class="label">Table Result</label>
                             <p class="control">
                                 <input type="text" name="table_result" id="table_result" class="input" maxlength="6">

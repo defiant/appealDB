@@ -206,13 +206,13 @@ class HandHelpers
                     $score += 300;
                 }
 
-                if($tricksTaken === 12){
+                if($tricksTaken === 12 && $tricksRequired == 12){
                     if($vul){
                         $score += 750;
                     }else{
                         $score += 500;
                     }
-                }elseif($tricksTaken === 13){
+                }elseif($tricksTaken === 13 && $tricksRequired == 13){
                     if($vul){
                         $score += 1500;
                     }else{
@@ -281,6 +281,16 @@ class HandHelpers
         return $score;
     }
 
+    public function score($tableResult, $declarer, $boardNo)
+    {
+        if($tableResult && $declarer){
+            return $this->getScore($tableResult, $this->isVul($boardNo, $declarer));
+        }else{
+            return null;
+        }
+        // $data['appeal']->board->table_result != null && $data['appeal']->board->declarer != null ? $helper->getScore($data['appeal']->board->table_result, $helper->isVul($data['appeal']->board->board_no, $data['appeal']->board->declarer)) : null;
+    }
+
     /**
      * Return a human readable representation of the given string contract
      * @param $contract
@@ -296,7 +306,7 @@ class HandHelpers
             return 'Passed out';
         }
 
-        $suits = ['C' => 'Clubs', 'D' => 'Diamonds', 'H' => 'Hearts', 'S' => 'Spades', 'N' => 'No Trump'];
+        $suits = ['C' => 'Clubs', 'D' => 'Diamonds', 'H' => 'Hearts', 'S' => 'Spades', 'N' => 'NT'];
 
         $level = substr($contract, 0, 1);
         $suit = substr($contract, 1, 1);
@@ -319,5 +329,34 @@ class HandHelpers
         }
 
         return "$level {$suits[$suit]} $penalty, $result";
+    }
+
+    public function getVul($board){
+        $vul = [
+            'none','ns','ew','all',
+            'ns','ew','all','none',
+            'ew','all','none','ns',
+            'all','none','ns','ew',
+        ];
+        $x = $board % 16;
+
+        $x = $x ? $x-1 : 0;
+
+        return $vul[$x];
+    }
+
+    public function isVul($board, $declarer)
+    {
+        $vul = $this->getVul($board);
+
+        if($vul == 'none'){
+            return false;
+        }
+
+        if($vul == 'all'){
+            return true;
+        }
+
+        return strpos($vul, strtolower($declarer)) !== false;
     }
 }

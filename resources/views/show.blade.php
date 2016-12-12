@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
-@section('title'){{$appeal->event->event_name}} appeal records - AppealDB.com @endsection
+@section('title'){{$appeal->event->event_name}} (Board: {{$appeal->board->board_no}}) appeal records - AppealDB.com @endsection
 
 @section('meta_description')Appeal records for the event {{$appeal->event->event_name}} ({{$appeal->event->session}}) concerning {{config('bridge.categories')[$appeal->category_id]}} at board {{$appeal->board->board_no}}. The appeal was at {{$appeal->appeal_time->toFormattedDateString()}}. @if($appeal->laws) Related laws: {{$appeal->laws}} @endif @endsection
-
+@push('js')
+<script src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>
+@endpush
 @section('content')
 
     <section class="section">
@@ -18,7 +20,7 @@
             </div>
             <hr>
             <div class="columns">
-                <div class="column is-5">
+                <div class="column is-5" id="hand">
                     <div class="hand-info columns is-mobile has-text-centered">
                         <div class="column"><strong>Board No</strong>: {{$appeal->board->board_no}}</div>
                         <div class="column"><strong>Dealer</strong>: {{config('bridge.dealer')[$appeal->board->dealer]}}</div>
@@ -137,8 +139,23 @@
                     <p><strong>Related Laws</strong>: {{$appeal->laws}}</p>
 
                     <p>
-                        @if($appeal->board->table_result)<strong>Table Result</strong>: @result($appeal->board->table_result). <em>({{$appeal->board->table_result}})</em><br>@endif
-                        <strong>Lead</strong>:{{$appeal->board->lead}}
+                        <strong>Lead</strong>:{{$appeal->board->lead}} <br>
+
+                        @if($appeal->board->table_result)
+                            <strong>Table Result</strong>: @result($appeal->board->table_result) @if($appeal->board->declarer) by {{config('bridge.dealer')[$appeal->board->declarer]}} @endif {{$score}}<br>
+                        @endif
+
+                        @if($appeal->table_result_stands)
+                            <strong>TD Ruling</strong>: Table result stands. <br>
+                        @elseif($appeal->td_ruling)
+                            <strong>TD Ruling</strong>: {{$appeal->td_ruling}} <br>
+                        @endif
+
+                        @if($appeal->ruling_upheld)
+                            <strong>AC Ruling</strong>: TD ruling upheld. <br>
+                        @elseif($appeal->ac_ruling)
+                            <strong>AC Ruling</strong>: {{$appeal->ac_ruling}}<br>
+                        @endif
                     </p>
                 </div>
             </div>

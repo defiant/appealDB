@@ -38,6 +38,7 @@ class DbAppealRepository implements AppealRepositoryInterface
         $board->alerts = $request->get('alert', null) ? json_encode($request->get('alert')) : null;
         $board->lead = $request->get('lead', null);
         $board->table_result = $request->get('table_result', null);
+        $board->declarer = $request->get('declarer', null);
 
         $appeal = new Appeal();
         $appeal->category_id = $request->get('appeal_category');
@@ -57,7 +58,25 @@ class DbAppealRepository implements AppealRepositoryInterface
         $appeal->laws = $request->get('laws');
         $appeal->appeal_time = $request->get('date');
         $appeal->scoring_id = $request->get('scoring');
-        $appeal->ruling_upheld = $request->get('ruling_upheld');
+
+        if($request->get('result_stands', false)){
+            $appeal->table_result_stands = true;
+            $appeal->td_ruling = null;
+            /*$board->table_result
+                ? $helper->resultToHuman($board->table_result) . ', ' . $helper->getScore($board->table_result, $board->declarer)
+                : null;*/
+        }else{
+            $appeal->table_result_stands = false;
+            $appeal->td_ruling = null;
+        }
+
+        if($request->get('ruling_upheld', true)){
+            $appeal->ruling_upheld = true;
+            $appeal->ac_ruling = $appeal->td_ruling;
+        }else{
+            $appeal->ruling_upheld = false;
+            $appeal->ac_ruling = $request->get('ac_ruling');
+        }
 
         $appeal->save();
         $appeal->event()->save($event);

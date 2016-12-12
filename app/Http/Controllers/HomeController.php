@@ -34,6 +34,7 @@ class HomeController extends Controller
         $data['hands'] = $helper->handToArray($data['appeal']->board->hand);
         $data['auction'] = $helper->getAuction($data['appeal']->board->bidding, $data['appeal']->board->dealer);
         $data['alerts'] = json_decode($data['appeal']->board->alerts, true);
+        $data['score'] = $helper->score($data['appeal']->board->table_result, $data['appeal']->board->declarer, $data['appeal']->board->board_no);
         $data['row'] = 0;
 
         return view('show', $data);
